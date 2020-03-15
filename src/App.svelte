@@ -2,7 +2,7 @@
 	import { fade } from 'svelte/transition';
 	import { onMount } from 'svelte';
 	import NowPlaying from './NowPlaying.svelte';
-	// import ResetUsername from './ResetUsername.svelte';
+	import ResetUsername from './ResetUsername.svelte';
 
 	import Cookies from 'js-cookie';
 
@@ -41,7 +41,7 @@
 	<div class="now-playing-container">
 		<NowPlaying {username}/>
 	</div>
-	<!-- <ResetUsername/> -->
+	<ResetUsername/>
 {:else}
 	<main>
 		<div class="input-container">
