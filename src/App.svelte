@@ -28,6 +28,12 @@
 		console.log(username);
 	}
 
+	function handleSubmit(e) {
+		if (e.key == 'Enter') {
+			saveUser();
+		}
+	}
+
 	onMount(eatCookies);
 </script>
 
@@ -43,7 +49,7 @@
 				type="text" 
 				bind:value={username} 
 				placeholder="Last.fm Username"
-				on:enter={saveUser}>
+				on:keydown={ e => handleSubmit(e) }>
 			{#if username && username.length > 0}
 				<span on:click={saveUser} transition:fade="{{duration: 300}}" class="go-arrow">&#x2192;</span>
 			{/if}
@@ -104,5 +110,23 @@
 		justify-content: center;
 		align-items: center;
 		background-color: rgb(247, 249, 251);
+	}
+
+	@media (max-device-width: 480px) {
+		input {
+			max-width: 90%;
+			font-size: 1em;
+		}
+		.go-arrow {
+			margin-left: -31px;
+    font-size: 1.2em;
+    background-color: #8181ff;
+    color: white;
+    border-radius: 50%;
+    width: 25px;
+    text-align: center;
+    height: 25px;
+    margin-top: 4px;
+		}
 	}
 </style>
