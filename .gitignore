@@ -2,3 +2,4 @@ keys.yml
 node_modules/
 .byebug_history
 web-api-auth-examples/
+.DS_Store
