@@ -8,4 +8,4 @@ A simple now playing viewer
 
 Development, use `npm run dev`
 
-To deploy to github pages, use `npm run build`. For now, I'm just moving from `docs` to `public` even though it should ideally work without that.
+To deploy to github pages, use `npm run build`.
