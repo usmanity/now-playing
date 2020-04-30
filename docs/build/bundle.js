@@ -1,2 +1,3117 @@
-var app=function(){"use strict";function t(){}const e=t=>t;function n(t){return t()}function r(){return Object.create(null)}function a(t){t.forEach(n)}function o(t){return"function"==typeof t}function i(t,e){return t!=t?e==e:t!==e||t&&"object"==typeof t||"function"==typeof t}const s="undefined"!=typeof window;let u=s?()=>window.performance.now():()=>Date.now(),c=s?t=>requestAnimationFrame(t):t;const l=new Set;function d(t){l.forEach(e=>{e.c(t)||(l.delete(e),e.f())}),0!==l.size&&c(d)}function f(t,e){t.appendChild(e)}function m(t,e,n){t.insertBefore(e,n||null)}function h(t){t.parentNode.removeChild(t)}function g(t){return document.createElement(t)}function p(t){return document.createTextNode(t)}function v(){return p(" ")}function y(t,e,n,r){return t.addEventListener(e,n,r),()=>t.removeEventListener(e,n,r)}function b(t,e,n){null==n?t.removeAttribute(e):t.getAttribute(e)!==n&&t.setAttribute(e,n)}function w(t,e){e=""+e,t.data!==e&&(t.data=e)}function x(t,e){(null!=e||t.value)&&(t.value=e)}let $,M,k=0,S={};function D(t,e,n,r,a,o,i,s=0){const u=16.666/r;let c="{\n";for(let t=0;t<=1;t+=u){const r=e+(n-e)*o(t);c+=100*t+`%{${i(r,1-r)}}\n`}const l=c+`100% {${i(n,1-n)}}\n}`,d=`__svelte_${function(t){let e=5381,n=t.length;for(;n--;)e=(e<<5)-e^t.charCodeAt(n);return e>>>0}(l)}_${s}`;if(!S[d]){if(!$){const t=g("style");document.head.appendChild(t),$=t.sheet}S[d]=!0,$.insertRule(`@keyframes ${d} ${l}`,$.cssRules.length)}const f=t.style.animation||"";return t.style.animation=`${f?`${f}, `:""}${d} ${r}ms linear ${a}ms 1 both`,k+=1,d}function C(t,e){t.style.animation=(t.style.animation||"").split(", ").filter(e?t=>t.indexOf(e)<0:t=>-1===t.indexOf("__svelte")).join(", "),e&&!--k&&c(()=>{if(k)return;let t=$.cssRules.length;for(;t--;)$.deleteRule(t);S={}})}function j(t){M=t}function P(){if(!M)throw new Error("Function called outside component initialization");return M}const W=[],T=[],z=[],E=[],A=Promise.resolve();let _=!1;function I(t){z.push(t)}let N=!1;const F=new Set;function X(){if(!N){N=!0;do{for(let t=0;t<W.length;t+=1){const e=W[t];j(e),O(e.$$)}for(W.length=0;T.length;)T.pop()();for(let t=0;t<z.length;t+=1){const e=z[t];F.has(e)||(F.add(e),e())}z.length=0}while(W.length);for(;E.length;)E.pop()();_=!1,N=!1,F.clear()}}function O(t){if(null!==t.fragment){t.update(),a(t.before_update);const e=t.dirty;t.dirty=[-1],t.fragment&&t.fragment.p(t.ctx,e),t.after_update.forEach(I)}}let L;function R(t,e,n){t.dispatchEvent(function(t,e){const n=document.createEvent("CustomEvent");return n.initCustomEvent(t,!1,!1,e),n}(`${e?"intro":"outro"}${n}`))}const q=new Set;let J;function B(){J={r:0,c:[],p:J}}function U(){J.r||a(J.c),J=J.p}function Y(t,e){t&&t.i&&(q.delete(t),t.i(e))}function H(t,e,n,r){if(t&&t.o){if(q.has(t))return;q.add(t),J.c.push(()=>{q.delete(t),r&&(n&&t.d(1),r())}),t.o(e)}}const Q={duration:0};function V(n,r,i,s){let f=r(n,i),m=s?0:1,h=null,g=null,p=null;function v(){p&&C(n,p)}function y(t,e){const n=t.b-m;return e*=Math.abs(n),{a:m,b:t.b,d:n,duration:e,start:t.start,end:t.start+e,group:t.group}}function b(r){const{delay:o=0,duration:i=300,easing:s=e,tick:b=t,css:w}=f||Q,x={start:u()+o,b:r};r||(x.group=J,J.r+=1),h?g=x:(w&&(v(),p=D(n,m,r,i,o,s,w)),r&&b(0,1),h=y(x,i),I(()=>R(n,r,"start")),function(t){let e;0===l.size&&c(d),new Promise(n=>{l.add(e={c:t,f:n})})}(t=>{if(g&&t>g.start&&(h=y(g,i),g=null,R(n,h.b,"start"),w&&(v(),p=D(n,m,h.b,h.duration,0,s,f.css))),h)if(t>=h.end)b(m=h.b,1-m),R(n,h.b,"end"),g||(h.b?v():--h.group.r||a(h.group.c)),h=null;else if(t>=h.start){const e=t-h.start;m=h.a+h.d*s(e/h.duration),b(m,1-m)}return!(!h&&!g)}))}return{run(t){o(f)?(L||(L=Promise.resolve(),L.then(()=>{L=null})),L).then(()=>{f=f(),b(t)}):b(t)},end(){v(),h=g=null}}}function Z(t){t&&t.c()}function G(t,e,r){const{fragment:i,on_mount:s,on_destroy:u,after_update:c}=t.$$;i&&i.m(e,r),I(()=>{const e=s.map(n).filter(o);u?u.push(...e):a(e),t.$$.on_mount=[]}),c.forEach(I)}function K(t,e){const n=t.$$;null!==n.fragment&&(a(n.on_destroy),n.fragment&&n.fragment.d(e),n.on_destroy=n.fragment=null,n.ctx=[])}function tt(t,e){-1===t.$$.dirty[0]&&(W.push(t),_||(_=!0,A.then(X)),t.$$.dirty.fill(0)),t.$$.dirty[e/31|0]|=1<<e%31}function et(e,n,o,i,s,u,c=[-1]){const l=M;j(e);const d=n.props||{},f=e.$$={fragment:null,ctx:null,props:u,update:t,not_equal:s,bound:r(),on_mount:[],on_destroy:[],before_update:[],after_update:[],context:new Map(l?l.$$.context:[]),callbacks:r(),dirty:c};let m=!1;f.ctx=o?o(e,d,(t,n,...r)=>{const a=r.length?r[0]:n;return f.ctx&&s(f.ctx[t],f.ctx[t]=a)&&(f.bound[t]&&f.bound[t](a),m&&tt(e,t)),n}):[],f.update(),m=!0,a(f.before_update),f.fragment=!!i&&i(f.ctx),n.target&&(n.hydrate?f.fragment&&f.fragment.l(function(t){return Array.from(t.childNodes)}(n.target)):f.fragment&&f.fragment.c(),n.intro&&Y(e.$$.fragment),G(e,n.target,n.anchor),X()),j(l)}class nt{$destroy(){K(this,1),this.$destroy=t}$on(t,e){const n=this.$$.callbacks[t]||(this.$$.callbacks[t]=[]);return n.push(e),()=>{const t=n.indexOf(e);-1!==t&&n.splice(t,1)}}$set(){}}function rt(t){const e=t-1;return e*e*e+1}function at(t,{delay:n=0,duration:r=400,easing:a=e}){const o=+getComputedStyle(t).opacity;return{delay:n,duration:r,easing:a,css:t=>`opacity: ${t*o}`}}function ot(t,{delay:e=0,duration:n=400,easing:r=rt,x:a=0,y:o=0,opacity:i=0}){const s=getComputedStyle(t),u=+s.opacity,c="none"===s.transform?"":s.transform,l=u*(1-i);return{delay:e,duration:n,easing:r,css:(t,e)=>`\n\t\t\ttransform: ${c} translate(${(1-t)*a}px, ${(1-t)*o}px);\n\t\t\topacity: ${u-l*e}`}}function it(t,e){if(e.length<t)throw new TypeError(t+" argument"+t>1?"s":" required, but only "+e.length+" present")}function st(t){it(1,arguments);var e=Object.prototype.toString.call(t);return t instanceof Date||"object"==typeof t&&"[object Date]"===e?new Date(t.getTime()):"number"==typeof t||"[object Number]"===e?new Date(t):("string"!=typeof t&&"[object String]"!==e||"undefined"==typeof console||(console.warn("Starting with v2.0.0-beta.1 date-fns doesn't accept strings as arguments. Please use `parseISO` to parse strings. See: https://git.io/fjule"),console.warn((new Error).stack)),new Date(NaN))}function ut(t){return t.getTime()%6e4}function ct(t){var e=new Date(t.getTime()),n=Math.ceil(e.getTimezoneOffset());return e.setSeconds(0,0),6e4*n+(n>0?(6e4+ut(e))%6e4:ut(e))}function lt(t,e){it(2,arguments);var n=st(t),r=st(e),a=n.getTime()-r.getTime();return a<0?-1:a>0?1:a}function dt(t,e){it(2,arguments);var n=st(t),r=st(e),a=n.getFullYear()-r.getFullYear(),o=n.getMonth()-r.getMonth();return 12*a+o}function ft(t,e){it(2,arguments);var n=st(t),r=st(e);return n.getTime()-r.getTime()}function mt(t,e){it(2,arguments);var n=st(t),r=st(e),a=lt(n,r),o=Math.abs(dt(n,r));n.setMonth(n.getMonth()-a*o);var i=lt(n,r)===-a,s=a*(o-i);return 0===s?0:s}function ht(t,e){it(2,arguments);var n=ft(t,e)/1e3;return n>0?Math.floor(n):Math.ceil(n)}var gt={lessThanXSeconds:{one:"less than a second",other:"less than {{count}} seconds"},xSeconds:{one:"1 second",other:"{{count}} seconds"},halfAMinute:"half a minute",lessThanXMinutes:{one:"less than a minute",other:"less than {{count}} minutes"},xMinutes:{one:"1 minute",other:"{{count}} minutes"},aboutXHours:{one:"about 1 hour",other:"about {{count}} hours"},xHours:{one:"1 hour",other:"{{count}} hours"},xDays:{one:"1 day",other:"{{count}} days"},aboutXMonths:{one:"about 1 month",other:"about {{count}} months"},xMonths:{one:"1 month",other:"{{count}} months"},aboutXYears:{one:"about 1 year",other:"about {{count}} years"},xYears:{one:"1 year",other:"{{count}} years"},overXYears:{one:"over 1 year",other:"over {{count}} years"},almostXYears:{one:"almost 1 year",other:"almost {{count}} years"}};function pt(t){return function(e){var n=e||{},r=n.width?String(n.width):t.defaultWidth;return t.formats[r]||t.formats[t.defaultWidth]}}var vt={date:pt({formats:{full:"EEEE, MMMM do, y",long:"MMMM do, y",medium:"MMM d, y",short:"MM/dd/yyyy"},defaultWidth:"full"}),time:pt({formats:{full:"h:mm:ss a zzzz",long:"h:mm:ss a z",medium:"h:mm:ss a",short:"h:mm a"},defaultWidth:"full"}),dateTime:pt({formats:{full:"{{date}} 'at' {{time}}",long:"{{date}} 'at' {{time}}",medium:"{{date}}, {{time}}",short:"{{date}}, {{time}}"},defaultWidth:"full"})},yt={lastWeek:"'last' eeee 'at' p",yesterday:"'yesterday at' p",today:"'today at' p",tomorrow:"'tomorrow at' p",nextWeek:"eeee 'at' p",other:"P"};function bt(t){return function(e,n){var r,a=n||{};if("formatting"===(a.context?String(a.context):"standalone")&&t.formattingValues){var o=t.defaultFormattingWidth||t.defaultWidth,i=a.width?String(a.width):o;r=t.formattingValues[i]||t.formattingValues[o]}else{var s=t.defaultWidth,u=a.width?String(a.width):t.defaultWidth;r=t.values[u]||t.values[s]}return r[t.argumentCallback?t.argumentCallback(e):e]}}function wt(t){return function(e,n){var r=String(e),a=n||{},o=a.width,i=o&&t.matchPatterns[o]||t.matchPatterns[t.defaultMatchWidth],s=r.match(i);if(!s)return null;var u,c=s[0],l=o&&t.parsePatterns[o]||t.parsePatterns[t.defaultParseWidth];return u="[object Array]"===Object.prototype.toString.call(l)?function(t,e){for(var n=0;n<t.length;n++)if(e(t[n]))return n}(l,(function(t){return t.test(r)})):function(t,e){for(var n in t)if(t.hasOwnProperty(n)&&e(t[n]))return n}(l,(function(t){return t.test(r)})),u=t.valueCallback?t.valueCallback(u):u,{value:u=a.valueCallback?a.valueCallback(u):u,rest:r.slice(c.length)}}}var xt,$t={code:"en-US",formatDistance:function(t,e,n){var r;return n=n||{},r="string"==typeof gt[t]?gt[t]:1===e?gt[t].one:gt[t].other.replace("{{count}}",e),n.addSuffix?n.comparison>0?"in "+r:r+" ago":r},formatLong:vt,formatRelative:function(t,e,n,r){return yt[t]},localize:{ordinalNumber:function(t,e){var n=Number(t),r=n%100;if(r>20||r<10)switch(r%10){case 1:return n+"st";case 2:return n+"nd";case 3:return n+"rd"}return n+"th"},era:bt({values:{narrow:["B","A"],abbreviated:["BC","AD"],wide:["Before Christ","Anno Domini"]},defaultWidth:"wide"}),quarter:bt({values:{narrow:["1","2","3","4"],abbreviated:["Q1","Q2","Q3","Q4"],wide:["1st quarter","2nd quarter","3rd quarter","4th quarter"]},defaultWidth:"wide",argumentCallback:function(t){return Number(t)-1}}),month:bt({values:{narrow:["J","F","M","A","M","J","J","A","S","O","N","D"],abbreviated:["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],wide:["January","February","March","April","May","June","July","August","September","October","November","December"]},defaultWidth:"wide"}),day:bt({values:{narrow:["S","M","T","W","T","F","S"],short:["Su","Mo","Tu","We","Th","Fr","Sa"],abbreviated:["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],wide:["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]},defaultWidth:"wide"}),dayPeriod:bt({values:{narrow:{am:"a",pm:"p",midnight:"mi",noon:"n",morning:"morning",afternoon:"afternoon",evening:"evening",night:"night"},abbreviated:{am:"AM",pm:"PM",midnight:"midnight",noon:"noon",morning:"morning",afternoon:"afternoon",evening:"evening",night:"night"},wide:{am:"a.m.",pm:"p.m.",midnight:"midnight",noon:"noon",morning:"morning",afternoon:"afternoon",evening:"evening",night:"night"}},defaultWidth:"wide",formattingValues:{narrow:{am:"a",pm:"p",midnight:"mi",noon:"n",morning:"in the morning",afternoon:"in the afternoon",evening:"in the evening",night:"at night"},abbreviated:{am:"AM",pm:"PM",midnight:"midnight",noon:"noon",morning:"in the morning",afternoon:"in the afternoon",evening:"in the evening",night:"at night"},wide:{am:"a.m.",pm:"p.m.",midnight:"midnight",noon:"noon",morning:"in the morning",afternoon:"in the afternoon",evening:"in the evening",night:"at night"}},defaultFormattingWidth:"wide"})},match:{ordinalNumber:(xt={matchPattern:/^(\d+)(th|st|nd|rd)?/i,parsePattern:/\d+/i,valueCallback:function(t){return parseInt(t,10)}},function(t,e){var n=String(t),r=e||{},a=n.match(xt.matchPattern);if(!a)return null;var o=a[0],i=n.match(xt.parsePattern);if(!i)return null;var s=xt.valueCallback?xt.valueCallback(i[0]):i[0];return{value:s=r.valueCallback?r.valueCallback(s):s,rest:n.slice(o.length)}}),era:wt({matchPatterns:{narrow:/^(b|a)/i,abbreviated:/^(b\.?\s?c\.?|b\.?\s?c\.?\s?e\.?|a\.?\s?d\.?|c\.?\s?e\.?)/i,wide:/^(before christ|before common era|anno domini|common era)/i},defaultMatchWidth:"wide",parsePatterns:{any:[/^b/i,/^(a|c)/i]},defaultParseWidth:"any"}),quarter:wt({matchPatterns:{narrow:/^[1234]/i,abbreviated:/^q[1234]/i,wide:/^[1234](th|st|nd|rd)? quarter/i},defaultMatchWidth:"wide",parsePatterns:{any:[/1/i,/2/i,/3/i,/4/i]},defaultParseWidth:"any",valueCallback:function(t){return t+1}}),month:wt({matchPatterns:{narrow:/^[jfmasond]/i,abbreviated:/^(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)/i,wide:/^(january|february|march|april|may|june|july|august|september|october|november|december)/i},defaultMatchWidth:"wide",parsePatterns:{narrow:[/^j/i,/^f/i,/^m/i,/^a/i,/^m/i,/^j/i,/^j/i,/^a/i,/^s/i,/^o/i,/^n/i,/^d/i],any:[/^ja/i,/^f/i,/^mar/i,/^ap/i,/^may/i,/^jun/i,/^jul/i,/^au/i,/^s/i,/^o/i,/^n/i,/^d/i]},defaultParseWidth:"any"}),day:wt({matchPatterns:{narrow:/^[smtwf]/i,short:/^(su|mo|tu|we|th|fr|sa)/i,abbreviated:/^(sun|mon|tue|wed|thu|fri|sat)/i,wide:/^(sunday|monday|tuesday|wednesday|thursday|friday|saturday)/i},defaultMatchWidth:"wide",parsePatterns:{narrow:[/^s/i,/^m/i,/^t/i,/^w/i,/^t/i,/^f/i,/^s/i],any:[/^su/i,/^m/i,/^tu/i,/^w/i,/^th/i,/^f/i,/^sa/i]},defaultParseWidth:"any"}),dayPeriod:wt({matchPatterns:{narrow:/^(a|p|mi|n|(in the|at) (morning|afternoon|evening|night))/i,any:/^([ap]\.?\s?m\.?|midnight|noon|(in the|at) (morning|afternoon|evening|night))/i},defaultMatchWidth:"any",parsePatterns:{any:{am:/^a/i,pm:/^p/i,midnight:/^mi/i,noon:/^no/i,morning:/morning/i,afternoon:/afternoon/i,evening:/evening/i,night:/night/i}},defaultParseWidth:"any"})},options:{weekStartsOn:0,firstWeekContainsDate:1}};function Mt(t){return function(t,e){if(null==t)throw new TypeError("assign requires that input parameter not be null or undefined");for(var n in e=e||{})e.hasOwnProperty(n)&&(t[n]=e[n]);return t}({},t)}function kt(e){return{c:t,m:t,p:t,d:t}}function St(t){let e,n,r,a,o,i,s,u,c,l,d,y,x,$,M,k=t[1].name+"",S=t[1].artist["#text"]+"",D=t[1].album["#text"]+"";function C(t,e){return t[1]["@attr"]?Ct:Dt}let j=C(t),P=j(t);return{c(){e=g("div"),n=g("div"),r=g("img"),o=v(),i=g("div"),s=g("div"),u=p(k),c=v(),l=g("div"),d=p(S),y=v(),x=g("div"),$=p(D),M=v(),P.c(),r.src!==(a=t[1].image[2]["#text"])&&b(r,"src",a),b(r,"alt","album cover"),b(n,"class","image-container"),b(s,"class","svelte-3xlzhm"),b(l,"class","svelte-3xlzhm"),b(x,"class","svelte-3xlzhm"),b(i,"class","track-info svelte-3xlzhm"),b(e,"class","track-details svelte-3xlzhm")},m(t,a){m(t,e,a),f(e,n),f(n,r),f(e,o),f(e,i),f(i,s),f(s,u),f(i,c),f(i,l),f(l,d),f(i,y),f(i,x),f(x,$),f(i,M),P.m(i,null)},p(t,e){2&e&&r.src!==(a=t[1].image[2]["#text"])&&b(r,"src",a),2&e&&k!==(k=t[1].name+"")&&w(u,k),2&e&&S!==(S=t[1].artist["#text"]+"")&&w(d,S),2&e&&D!==(D=t[1].album["#text"]+"")&&w($,D),j===(j=C(t))&&P?P.p(t,e):(P.d(1),P=j(t),P&&(P.c(),P.m(i,null)))},d(t){t&&h(e),P.d()}}}function Dt(t){let e,n,r,a,o=zt(1e3*parseInt(t[1].date.uts))+"";return{c(){e=g("div"),n=p("Listened "),r=p(o),a=p(" ago"),b(e,"class","last-played svelte-3xlzhm")},m(t,o){m(t,e,o),f(e,n),f(e,r),f(e,a)},p(t,e){2&e&&o!==(o=zt(1e3*parseInt(t[1].date.uts))+"")&&w(r,o)},d(t){t&&h(e)}}}function Ct(e){let n;return{c(){n=g("div"),n.innerHTML='<img src="sound.gif" alt="now playing animation" class="svelte-3xlzhm">',b(n,"class","now-playing-animation svelte-3xlzhm")},m(t,e){m(t,n,e)},p:t,d(t){t&&h(n)}}}function jt(e){let n;return{c(){n=g("div"),n.textContent="Loading...",b(n,"class","loading svelte-3xlzhm")},m(t,e){m(t,n,e)},p:t,d(t){t&&h(n)}}}function Pt(t){let e,n,r,a,o,i,s=parseInt(t[2]).toLocaleString()+"";return{c(){e=g("div"),n=p('"'),r=p(t[5]),a=p('" '),o=p(s),i=p(" scrobbles"),b(e,"class","user-song-info svelte-3xlzhm")},m(t,s){m(t,e,s),f(e,n),f(e,r),f(e,a),f(e,o),f(e,i)},p(t,e){32&e&&w(r,t[5]),4&e&&s!==(s=parseInt(t[2]).toLocaleString()+"")&&w(o,s)},d(t){t&&h(e)}}}function Wt(t){let e,n,r,a,o,i,s,u,c,l,d,y,x,$,M,k,S,D=parseInt(t[3]).toLocaleString()+"",C=Et(t[2],t[3])+"";return{c(){e=g("div"),n=g("em"),r=p(t[6]),a=v(),o=p(D),i=p(" scrobbles"),s=v(),u=g("div"),c=p(C),l=p("% of "),d=p(t[0]),y=p("'s scrobbles for "),x=g("em"),$=p(t[6]),M=p(" are for '"),k=p(t[5]),S=p("'"),b(e,"class","user-artist-info svelte-3xlzhm"),b(u,"class","percentage svelte-3xlzhm")},m(t,h){m(t,e,h),f(e,n),f(n,r),f(e,a),f(e,o),f(e,i),m(t,s,h),m(t,u,h),f(u,c),f(u,l),f(u,d),f(u,y),f(u,x),f(x,$),f(u,M),f(u,k),f(u,S)},p(t,e){64&e&&w(r,t[6]),8&e&&D!==(D=parseInt(t[3]).toLocaleString()+"")&&w(o,D),12&e&&C!==(C=Et(t[2],t[3])+"")&&w(c,C),1&e&&w(d,t[0]),64&e&&w($,t[6]),32&e&&w(k,t[5])},d(t){t&&h(e),t&&h(s),t&&h(u)}}}function Tt(e){let n,r,a,o,i,s,u,c,l,d,y,x,$,M,k,S,D=parseInt(e[4]).toLocaleString()+"",C={ctx:e,current:null,token:null,pending:jt,then:St,catch:kt,value:8};!function(t,e){const n=e.token={};function r(t,r,a,o){if(e.token!==n)return;e.resolved=o;let i=e.ctx;void 0!==a&&(i=i.slice(),i[a]=o);const s=t&&(e.current=t)(i);let u=!1;e.block&&(e.blocks?e.blocks.forEach((t,n)=>{n!==r&&t&&(B(),H(t,1,1,()=>{e.blocks[n]=null}),U())}):e.block.d(1),s.c(),Y(s,1),s.m(e.mount(),e.anchor),u=!0),e.block=s,e.blocks&&(e.blocks[r]=s),u&&X()}if((a=t)&&"object"==typeof a&&"function"==typeof a.then){const n=P();if(t.then(t=>{j(n),r(e.then,1,e.value,t),j(null)},t=>{j(n),r(e.catch,2,e.error,t),j(null)}),e.current!==e.pending)return r(e.pending,0),!0}else{if(e.current!==e.then)return r(e.then,1,e.value,t),!0;e.resolved=t}var a}(a=e[7],C);let W=e[2]&&Pt(e),T=e[3]&&Wt(e);return{c(){n=g("div"),r=g("div"),C.block.c(),o=v(),i=g("div"),s=g("div"),u=p("Stats for "),c=p(e[0]),l=v(),W&&W.c(),d=v(),T&&T.c(),y=v(),x=g("hr"),$=v(),M=g("div"),k=p("Total scrobbles: "),S=p(D),b(r,"class","current-song svelte-3xlzhm"),b(s,"class","stat-header svelte-3xlzhm"),b(x,"class","svelte-3xlzhm"),b(M,"class","user-playcount"),b(i,"class","stat-wrapper svelte-3xlzhm"),b(n,"class","now-playing-container svelte-3xlzhm")},m(t,e){m(t,n,e),f(n,r),C.block.m(r,C.anchor=null),C.mount=()=>r,C.anchor=null,f(n,o),f(n,i),f(i,s),f(s,u),f(s,c),f(i,l),W&&W.m(i,null),f(i,d),T&&T.m(i,null),f(i,y),f(i,x),f(i,$),f(i,M),f(M,k),f(M,S)},p(t,[n]){{const r=(e=t).slice();r[8]=C.resolved,C.block.p(r,n)}1&n&&w(c,e[0]),e[2]?W?W.p(e,n):(W=Pt(e),W.c(),W.m(i,d)):W&&(W.d(1),W=null),e[3]?T?T.p(e,n):(T=Wt(e),T.c(),T.m(i,y)):T&&(T.d(1),T=null),16&n&&D!==(D=parseInt(e[4]).toLocaleString()+"")&&w(S,D)},i:t,o:t,d(t){t&&h(n),C.block.d(),C.token=null,C=null,W&&W.d(),T&&T.d()}}}function zt(t){return function(t,e,n){it(2,arguments);var r=n||{},a=r.locale||$t;if(!a.formatDistance)throw new RangeError("locale must contain formatDistance property");var o=lt(t,e);if(isNaN(o))throw new RangeError("Invalid time value");var i,s,u=Mt(r);u.addSuffix=Boolean(r.addSuffix),u.comparison=o,o>0?(i=st(e),s=st(t)):(i=st(t),s=st(e));var c,l=ht(s,i),d=(ct(s)-ct(i))/1e3,f=Math.round((l-d)/60);if(f<2)return r.includeSeconds?l<5?a.formatDistance("lessThanXSeconds",5,u):l<10?a.formatDistance("lessThanXSeconds",10,u):l<20?a.formatDistance("lessThanXSeconds",20,u):l<40?a.formatDistance("halfAMinute",null,u):l<60?a.formatDistance("lessThanXMinutes",1,u):a.formatDistance("xMinutes",1,u):0===f?a.formatDistance("lessThanXMinutes",1,u):a.formatDistance("xMinutes",f,u);if(f<45)return a.formatDistance("xMinutes",f,u);if(f<90)return a.formatDistance("aboutXHours",1,u);if(f<1440){var m=Math.round(f/60);return a.formatDistance("aboutXHours",m,u)}if(f<2520)return a.formatDistance("xDays",1,u);if(f<43200){var h=Math.round(f/1440);return a.formatDistance("xDays",h,u)}if(f<86400)return c=Math.round(f/43200),a.formatDistance("aboutXMonths",c,u);if((c=mt(s,i))<12){var g=Math.round(f/43200);return a.formatDistance("xMonths",g,u)}var p=c%12,v=Math.floor(c/12);return p<3?a.formatDistance("aboutXYears",v,u):p<9?a.formatDistance("overXYears",v,u):a.formatDistance("almostXYears",v+1,u)}(new Date,t)}function Et(t,e){let n=parseFloat(t),r=parseFloat(e),a=(n/r).toFixed(3);return console.log(n,r,a),100*a}function At(t,e,n){let r,a,o,i,s,u,c,{username:l}=e,d=`https://ws.audioscrobbler.com/2.0/?api_key=30115c5279f79d6eea66d783895ba6c7&format=json&limit=1&user=${l}&autocorrect=1`,f=m();async function m(){let t=d+"&method=user.getrecenttracks";const e=await fetch(t);return r=await e.json(),n(1,a=r.recenttracks.track[0]),async function(t){const e=t.artist["#text"],r=n(5,u=t.name);let a=d+`&method=track.getInfo&artist=${e}&track=${r}`;const i=await fetch(a),s=await i.json();n(2,o=s.track.userplaycount)}(a),async function(t){const e=n(6,c=t.artist["#text"]);let r=d+`&method=artist.getInfo&artist=${e}`;const a=await fetch(r),o=await a.json();n(3,i=o.artist.stats.userplaycount)}(a),async function(){let t=d+"&method=user.getInfo";const e=await fetch(t),r=await e.json();n(4,s=r.user.playcount)}(),r}setInterval(m,2e4);return m(),t.$set=t=>{"username"in t&&n(0,l=t.username)},[l,a,o,i,s,u,c,f]}class _t extends nt{constructor(t){super(),et(this,t,At,Tt,i,{username:0})}}var It=function(t,e){return t(e={exports:{}},e.exports),e.exports}((function(t,e){var n;n=function(){function t(){for(var t=0,e={};t<arguments.length;t++){var n=arguments[t];for(var r in n)e[r]=n[r]}return e}function e(t){return t.replace(/(%[0-9A-Z]{2})+/g,decodeURIComponent)}return function n(r){function a(){}function o(e,n,o){if("undefined"!=typeof document){"number"==typeof(o=t({path:"/"},a.defaults,o)).expires&&(o.expires=new Date(1*new Date+864e5*o.expires)),o.expires=o.expires?o.expires.toUTCString():"";try{var i=JSON.stringify(n);/^[\{\[]/.test(i)&&(n=i)}catch(t){}n=r.write?r.write(n,e):encodeURIComponent(String(n)).replace(/%(23|24|26|2B|3A|3C|3E|3D|2F|3F|40|5B|5D|5E|60|7B|7D|7C)/g,decodeURIComponent),e=encodeURIComponent(String(e)).replace(/%(23|24|26|2B|5E|60|7C)/g,decodeURIComponent).replace(/[\(\)]/g,escape);var s="";for(var u in o)o[u]&&(s+="; "+u,!0!==o[u]&&(s+="="+o[u].split(";")[0]));return document.cookie=e+"="+n+s}}function i(t,n){if("undefined"!=typeof document){for(var a={},o=document.cookie?document.cookie.split("; "):[],i=0;i<o.length;i++){var s=o[i].split("="),u=s.slice(1).join("=");n||'"'!==u.charAt(0)||(u=u.slice(1,-1));try{var c=e(s[0]);if(u=(r.read||r)(u,c)||e(u),n)try{u=JSON.parse(u)}catch(t){}if(a[c]=u,t===c)break}catch(t){}}return t?a[t]:a}}return a.set=o,a.get=function(t){return i(t,!1)},a.getJSON=function(t){return i(t,!0)},a.remove=function(e,n){o(e,"",t(n,{expires:-1}))},a.defaults={},a.withConverter=n,a}((function(){}))},t.exports=n()}));function Nt(e){let n,r,a,o;return{c(){n=g("button"),n.textContent="Reset Username"},m(t,e){m(t,n,e),a=!0,o=y(n,"click",Xt)},p:t,i(t){a||(I(()=>{r||(r=V(n,ot,{},!0)),r.run(1)}),a=!0)},o(t){r||(r=V(n,ot,{},!1)),r.run(0),a=!1},d(t){t&&h(n),t&&r&&r.end(),o()}}}function Ft(t){let e,n,r,a,o,i,s,u=t[0]&&Nt();return{c(){e=g("div"),u&&u.c(),n=v(),r=g("button"),a=p("×"),b(r,"class",o="little-x "+(t[0]?"showing":"")+" svelte-63k6g0"),b(e,"class","reset-container svelte-63k6g0")},m(o,c){m(o,e,c),u&&u.m(e,null),f(e,n),f(e,r),f(r,a),i=!0,s=y(r,"click",t[1])},p(t,[a]){t[0]?u?(u.p(t,a),Y(u,1)):(u=Nt(),u.c(),Y(u,1),u.m(e,n)):u&&(B(),H(u,1,1,()=>{u=null}),U()),(!i||1&a&&o!==(o="little-x "+(t[0]?"showing":"")+" svelte-63k6g0"))&&b(r,"class",o)},i(t){i||(Y(u),i=!0)},o(t){H(u),i=!1},d(t){t&&h(e),u&&u.d(),s()}}}function Xt(){It.remove("username"),location=location}function Ot(t,e,n){let r=!1;return[r,t=>n(0,r=!r)]}class Lt extends nt{constructor(t){super(),et(this,t,Ot,Ft,i,{})}}function Rt(t){let e,n,r,o,i,s,u=t[0]&&t[0].length>0&&Jt(t);return{c(){e=g("main"),n=g("div"),r=g("input"),o=v(),u&&u.c(),b(r,"type","text"),b(r,"placeholder","Last.fm Username"),b(r,"class","svelte-tjlies"),b(n,"class","input-container"),b(e,"class","svelte-tjlies")},m(a,c){m(a,e,c),f(e,n),f(n,r),x(r,t[0]),f(n,o),u&&u.m(n,null),i=!0,s=[y(r,"input",t[6]),y(r,"keydown",t[7])]},p(t,e){1&e&&r.value!==t[0]&&x(r,t[0]),t[0]&&t[0].length>0?u?(u.p(t,e),Y(u,1)):(u=Jt(t),u.c(),Y(u,1),u.m(n,null)):u&&(B(),H(u,1,1,()=>{u=null}),U())},i(t){i||(Y(u),i=!0)},o(t){H(u),i=!1},d(t){t&&h(e),u&&u.d(),a(s)}}}function qt(t){let e,n,r;const a=new _t({props:{username:t[0]}}),o=new Lt({});return{c(){e=g("div"),Z(a.$$.fragment),n=v(),Z(o.$$.fragment),b(e,"class","now-playing-container svelte-tjlies")},m(t,i){m(t,e,i),G(a,e,null),m(t,n,i),G(o,t,i),r=!0},p(t,e){const n={};1&e&&(n.username=t[0]),a.$set(n)},i(t){r||(Y(a.$$.fragment,t),Y(o.$$.fragment,t),r=!0)},o(t){H(a.$$.fragment,t),H(o.$$.fragment,t),r=!1},d(t){t&&h(e),K(a),t&&h(n),K(o,t)}}}function Jt(e){let n,r,a,o;return{c(){n=g("span"),n.textContent="→",b(n,"class","go-arrow svelte-tjlies")},m(t,r){m(t,n,r),a=!0,o=y(n,"click",e[2])},p:t,i(t){a||(I(()=>{r||(r=V(n,at,{duration:300},!0)),r.run(1)}),a=!0)},o(t){r||(r=V(n,at,{duration:300},!1)),r.run(0),a=!1},d(t){t&&h(n),t&&r&&r.end(),o()}}}function Bt(t){let e,n,r,a;const o=[qt,Rt],i=[];function s(t,e){return t[1]?0:1}return e=s(t),n=i[e]=o[e](t),{c(){n.c(),r=p("")},m(t,n){i[e].m(t,n),m(t,r,n),a=!0},p(t,[a]){let u=e;e=s(t),e===u?i[e].p(t,a):(B(),H(i[u],1,1,()=>{i[u]=null}),U(),n=i[e],n||(n=i[e]=o[e](t),n.c()),Y(n,1),n.m(r.parentNode,r))},i(t){a||(Y(n),a=!0)},o(t){H(n),a=!1},d(t){i[e].d(t),t&&h(r)}}}function Ut(t,e,n){let r,a=!1;function o(){n(0,r=It.get("username")),n(1,a=!!r)}function i(){!function(t){It.set("username",t,{expires:7})}(r),s()}function s(){n(1,a=!0),console.log(r)}function u(t){"Enter"==t.key&&i()}var c;c=o,P().$$.on_mount.push(c);return[r,a,i,u,o,s,function(){r=this.value,n(0,r)},t=>u(t)]}return new class extends nt{constructor(t){super(),et(this,t,Ut,Bt,i,{})}}({target:document.body})}();
+
+(function(l, r) { if (l.getElementById('livereloadscript')) return; r = l.createElement('script'); r.async = 1; r.src = '//' + (window.location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1'; r.id = 'livereloadscript'; l.head.appendChild(r) })(window.document);
+var app = (function () {
+    'use strict';
+
+    function noop() { }
+    const identity = x => x;
+    function is_promise(value) {
+        return value && typeof value === 'object' && typeof value.then === 'function';
+    }
+    function add_location(element, file, line, column, char) {
+        element.__svelte_meta = {
+            loc: { file, line, column, char }
+        };
+    }
+    function run(fn) {
+        return fn();
+    }
+    function blank_object() {
+        return Object.create(null);
+    }
+    function run_all(fns) {
+        fns.forEach(run);
+    }
+    function is_function(thing) {
+        return typeof thing === 'function';
+    }
+    function safe_not_equal(a, b) {
+        return a != a ? b == b : a !== b || ((a && typeof a === 'object') || typeof a === 'function');
+    }
+
+    const is_client = typeof window !== 'undefined';
+    let now = is_client
+        ? () => window.performance.now()
+        : () => Date.now();
+    let raf = is_client ? cb => requestAnimationFrame(cb) : noop;
+
+    const tasks = new Set();
+    function run_tasks(now) {
+        tasks.forEach(task => {
+            if (!task.c(now)) {
+                tasks.delete(task);
+                task.f();
+            }
+        });
+        if (tasks.size !== 0)
+            raf(run_tasks);
+    }
+    /**
+     * Creates a new task that runs on each raf frame
+     * until it returns a falsy value or is aborted
+     */
+    function loop(callback) {
+        let task;
+        if (tasks.size === 0)
+            raf(run_tasks);
+        return {
+            promise: new Promise(fulfill => {
+                tasks.add(task = { c: callback, f: fulfill });
+            }),
+            abort() {
+                tasks.delete(task);
+            }
+        };
+    }
+
+    function append(target, node) {
+        target.appendChild(node);
+    }
+    function insert(target, node, anchor) {
+        target.insertBefore(node, anchor || null);
+    }
+    function detach(node) {
+        node.parentNode.removeChild(node);
+    }
+    function element(name) {
+        return document.createElement(name);
+    }
+    function text(data) {
+        return document.createTextNode(data);
+    }
+    function space() {
+        return text(' ');
+    }
+    function empty() {
+        return text('');
+    }
+    function listen(node, event, handler, options) {
+        node.addEventListener(event, handler, options);
+        return () => node.removeEventListener(event, handler, options);
+    }
+    function attr(node, attribute, value) {
+        if (value == null)
+            node.removeAttribute(attribute);
+        else if (node.getAttribute(attribute) !== value)
+            node.setAttribute(attribute, value);
+    }
+    function children(element) {
+        return Array.from(element.childNodes);
+    }
+    function set_input_value(input, value) {
+        if (value != null || input.value) {
+            input.value = value;
+        }
+    }
+    function custom_event(type, detail) {
+        const e = document.createEvent('CustomEvent');
+        e.initCustomEvent(type, false, false, detail);
+        return e;
+    }
+
+    let stylesheet;
+    let active = 0;
+    let current_rules = {};
+    // https://github.com/darkskyapp/string-hash/blob/master/index.js
+    function hash(str) {
+        let hash = 5381;
+        let i = str.length;
+        while (i--)
+            hash = ((hash << 5) - hash) ^ str.charCodeAt(i);
+        return hash >>> 0;
+    }
+    function create_rule(node, a, b, duration, delay, ease, fn, uid = 0) {
+        const step = 16.666 / duration;
+        let keyframes = '{\n';
+        for (let p = 0; p <= 1; p += step) {
+            const t = a + (b - a) * ease(p);
+            keyframes += p * 100 + `%{${fn(t, 1 - t)}}\n`;
+        }
+        const rule = keyframes + `100% {${fn(b, 1 - b)}}\n}`;
+        const name = `__svelte_${hash(rule)}_${uid}`;
+        if (!current_rules[name]) {
+            if (!stylesheet) {
+                const style = element('style');
+                document.head.appendChild(style);
+                stylesheet = style.sheet;
+            }
+            current_rules[name] = true;
+            stylesheet.insertRule(`@keyframes ${name} ${rule}`, stylesheet.cssRules.length);
+        }
+        const animation = node.style.animation || '';
+        node.style.animation = `${animation ? `${animation}, ` : ``}${name} ${duration}ms linear ${delay}ms 1 both`;
+        active += 1;
+        return name;
+    }
+    function delete_rule(node, name) {
+        node.style.animation = (node.style.animation || '')
+            .split(', ')
+            .filter(name
+            ? anim => anim.indexOf(name) < 0 // remove specific animation
+            : anim => anim.indexOf('__svelte') === -1 // remove all Svelte animations
+        )
+            .join(', ');
+        if (name && !--active)
+            clear_rules();
+    }
+    function clear_rules() {
+        raf(() => {
+            if (active)
+                return;
+            let i = stylesheet.cssRules.length;
+            while (i--)
+                stylesheet.deleteRule(i);
+            current_rules = {};
+        });
+    }
+
+    let current_component;
+    function set_current_component(component) {
+        current_component = component;
+    }
+    function get_current_component() {
+        if (!current_component)
+            throw new Error(`Function called outside component initialization`);
+        return current_component;
+    }
+    function onMount(fn) {
+        get_current_component().$$.on_mount.push(fn);
+    }
+
+    const dirty_components = [];
+    const binding_callbacks = [];
+    const render_callbacks = [];
+    const flush_callbacks = [];
+    const resolved_promise = Promise.resolve();
+    let update_scheduled = false;
+    function schedule_update() {
+        if (!update_scheduled) {
+            update_scheduled = true;
+            resolved_promise.then(flush);
+        }
+    }
+    function add_render_callback(fn) {
+        render_callbacks.push(fn);
+    }
+    let flushing = false;
+    const seen_callbacks = new Set();
+    function flush() {
+        if (flushing)
+            return;
+        flushing = true;
+        do {
+            // first, call beforeUpdate functions
+            // and update components
+            for (let i = 0; i < dirty_components.length; i += 1) {
+                const component = dirty_components[i];
+                set_current_component(component);
+                update(component.$$);
+            }
+            dirty_components.length = 0;
+            while (binding_callbacks.length)
+                binding_callbacks.pop()();
+            // then, once components are updated, call
+            // afterUpdate functions. This may cause
+            // subsequent updates...
+            for (let i = 0; i < render_callbacks.length; i += 1) {
+                const callback = render_callbacks[i];
+                if (!seen_callbacks.has(callback)) {
+                    // ...so guard against infinite loops
+                    seen_callbacks.add(callback);
+                    callback();
+                }
+            }
+            render_callbacks.length = 0;
+        } while (dirty_components.length);
+        while (flush_callbacks.length) {
+            flush_callbacks.pop()();
+        }
+        update_scheduled = false;
+        flushing = false;
+        seen_callbacks.clear();
+    }
+    function update($$) {
+        if ($$.fragment !== null) {
+            $$.update();
+            run_all($$.before_update);
+            const dirty = $$.dirty;
+            $$.dirty = [-1];
+            $$.fragment && $$.fragment.p($$.ctx, dirty);
+            $$.after_update.forEach(add_render_callback);
+        }
+    }
+
+    let promise;
+    function wait() {
+        if (!promise) {
+            promise = Promise.resolve();
+            promise.then(() => {
+                promise = null;
+            });
+        }
+        return promise;
+    }
+    function dispatch(node, direction, kind) {
+        node.dispatchEvent(custom_event(`${direction ? 'intro' : 'outro'}${kind}`));
+    }
+    const outroing = new Set();
+    let outros;
+    function group_outros() {
+        outros = {
+            r: 0,
+            c: [],
+            p: outros // parent group
+        };
+    }
+    function check_outros() {
+        if (!outros.r) {
+            run_all(outros.c);
+        }
+        outros = outros.p;
+    }
+    function transition_in(block, local) {
+        if (block && block.i) {
+            outroing.delete(block);
+            block.i(local);
+        }
+    }
+    function transition_out(block, local, detach, callback) {
+        if (block && block.o) {
+            if (outroing.has(block))
+                return;
+            outroing.add(block);
+            outros.c.push(() => {
+                outroing.delete(block);
+                if (callback) {
+                    if (detach)
+                        block.d(1);
+                    callback();
+                }
+            });
+            block.o(local);
+        }
+    }
+    const null_transition = { duration: 0 };
+    function create_bidirectional_transition(node, fn, params, intro) {
+        let config = fn(node, params);
+        let t = intro ? 0 : 1;
+        let running_program = null;
+        let pending_program = null;
+        let animation_name = null;
+        function clear_animation() {
+            if (animation_name)
+                delete_rule(node, animation_name);
+        }
+        function init(program, duration) {
+            const d = program.b - t;
+            duration *= Math.abs(d);
+            return {
+                a: t,
+                b: program.b,
+                d,
+                duration,
+                start: program.start,
+                end: program.start + duration,
+                group: program.group
+            };
+        }
+        function go(b) {
+            const { delay = 0, duration = 300, easing = identity, tick = noop, css } = config || null_transition;
+            const program = {
+                start: now() + delay,
+                b
+            };
+            if (!b) {
+                // @ts-ignore todo: improve typings
+                program.group = outros;
+                outros.r += 1;
+            }
+            if (running_program) {
+                pending_program = program;
+            }
+            else {
+                // if this is an intro, and there's a delay, we need to do
+                // an initial tick and/or apply CSS animation immediately
+                if (css) {
+                    clear_animation();
+                    animation_name = create_rule(node, t, b, duration, delay, easing, css);
+                }
+                if (b)
+                    tick(0, 1);
+                running_program = init(program, duration);
+                add_render_callback(() => dispatch(node, b, 'start'));
+                loop(now => {
+                    if (pending_program && now > pending_program.start) {
+                        running_program = init(pending_program, duration);
+                        pending_program = null;
+                        dispatch(node, running_program.b, 'start');
+                        if (css) {
+                            clear_animation();
+                            animation_name = create_rule(node, t, running_program.b, running_program.duration, 0, easing, config.css);
+                        }
+                    }
+                    if (running_program) {
+                        if (now >= running_program.end) {
+                            tick(t = running_program.b, 1 - t);
+                            dispatch(node, running_program.b, 'end');
+                            if (!pending_program) {
+                                // we're done
+                                if (running_program.b) {
+                                    // intro — we can tidy up immediately
+                                    clear_animation();
+                                }
+                                else {
+                                    // outro — needs to be coordinated
+                                    if (!--running_program.group.r)
+                                        run_all(running_program.group.c);
+                                }
+                            }
+                            running_program = null;
+                        }
+                        else if (now >= running_program.start) {
+                            const p = now - running_program.start;
+                            t = running_program.a + running_program.d * easing(p / running_program.duration);
+                            tick(t, 1 - t);
+                        }
+                    }
+                    return !!(running_program || pending_program);
+                });
+            }
+        }
+        return {
+            run(b) {
+                if (is_function(config)) {
+                    wait().then(() => {
+                        // @ts-ignore
+                        config = config();
+                        go(b);
+                    });
+                }
+                else {
+                    go(b);
+                }
+            },
+            end() {
+                clear_animation();
+                running_program = pending_program = null;
+            }
+        };
+    }
+
+    function handle_promise(promise, info) {
+        const token = info.token = {};
+        function update(type, index, key, value) {
+            if (info.token !== token)
+                return;
+            info.resolved = value;
+            let child_ctx = info.ctx;
+            if (key !== undefined) {
+                child_ctx = child_ctx.slice();
+                child_ctx[key] = value;
+            }
+            const block = type && (info.current = type)(child_ctx);
+            let needs_flush = false;
+            if (info.block) {
+                if (info.blocks) {
+                    info.blocks.forEach((block, i) => {
+                        if (i !== index && block) {
+                            group_outros();
+                            transition_out(block, 1, 1, () => {
+                                info.blocks[i] = null;
+                            });
+                            check_outros();
+                        }
+                    });
+                }
+                else {
+                    info.block.d(1);
+                }
+                block.c();
+                transition_in(block, 1);
+                block.m(info.mount(), info.anchor);
+                needs_flush = true;
+            }
+            info.block = block;
+            if (info.blocks)
+                info.blocks[index] = block;
+            if (needs_flush) {
+                flush();
+            }
+        }
+        if (is_promise(promise)) {
+            const current_component = get_current_component();
+            promise.then(value => {
+                set_current_component(current_component);
+                update(info.then, 1, info.value, value);
+                set_current_component(null);
+            }, error => {
+                set_current_component(current_component);
+                update(info.catch, 2, info.error, error);
+                set_current_component(null);
+            });
+            // if we previously had a then/catch block, destroy it
+            if (info.current !== info.pending) {
+                update(info.pending, 0);
+                return true;
+            }
+        }
+        else {
+            if (info.current !== info.then) {
+                update(info.then, 1, info.value, promise);
+                return true;
+            }
+            info.resolved = promise;
+        }
+    }
+
+    const globals = (typeof window !== 'undefined' ? window : global);
+    function create_component(block) {
+        block && block.c();
+    }
+    function mount_component(component, target, anchor) {
+        const { fragment, on_mount, on_destroy, after_update } = component.$$;
+        fragment && fragment.m(target, anchor);
+        // onMount happens before the initial afterUpdate
+        add_render_callback(() => {
+            const new_on_destroy = on_mount.map(run).filter(is_function);
+            if (on_destroy) {
+                on_destroy.push(...new_on_destroy);
+            }
+            else {
+                // Edge case - component was destroyed immediately,
+                // most likely as a result of a binding initialising
+                run_all(new_on_destroy);
+            }
+            component.$$.on_mount = [];
+        });
+        after_update.forEach(add_render_callback);
+    }
+    function destroy_component(component, detaching) {
+        const $$ = component.$$;
+        if ($$.fragment !== null) {
+            run_all($$.on_destroy);
+            $$.fragment && $$.fragment.d(detaching);
+            // TODO null out other refs, including component.$$ (but need to
+            // preserve final state?)
+            $$.on_destroy = $$.fragment = null;
+            $$.ctx = [];
+        }
+    }
+    function make_dirty(component, i) {
+        if (component.$$.dirty[0] === -1) {
+            dirty_components.push(component);
+            schedule_update();
+            component.$$.dirty.fill(0);
+        }
+        component.$$.dirty[(i / 31) | 0] |= (1 << (i % 31));
+    }
+    function init(component, options, instance, create_fragment, not_equal, props, dirty = [-1]) {
+        const parent_component = current_component;
+        set_current_component(component);
+        const prop_values = options.props || {};
+        const $$ = component.$$ = {
+            fragment: null,
+            ctx: null,
+            // state
+            props,
+            update: noop,
+            not_equal,
+            bound: blank_object(),
+            // lifecycle
+            on_mount: [],
+            on_destroy: [],
+            before_update: [],
+            after_update: [],
+            context: new Map(parent_component ? parent_component.$$.context : []),
+            // everything else
+            callbacks: blank_object(),
+            dirty
+        };
+        let ready = false;
+        $$.ctx = instance
+            ? instance(component, prop_values, (i, ret, ...rest) => {
+                const value = rest.length ? rest[0] : ret;
+                if ($$.ctx && not_equal($$.ctx[i], $$.ctx[i] = value)) {
+                    if ($$.bound[i])
+                        $$.bound[i](value);
+                    if (ready)
+                        make_dirty(component, i);
+                }
+                return ret;
+            })
+            : [];
+        $$.update();
+        ready = true;
+        run_all($$.before_update);
+        // `false` as a special case of no DOM component
+        $$.fragment = create_fragment ? create_fragment($$.ctx) : false;
+        if (options.target) {
+            if (options.hydrate) {
+                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                $$.fragment && $$.fragment.l(children(options.target));
+            }
+            else {
+                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                $$.fragment && $$.fragment.c();
+            }
+            if (options.intro)
+                transition_in(component.$$.fragment);
+            mount_component(component, options.target, options.anchor);
+            flush();
+        }
+        set_current_component(parent_component);
+    }
+    class SvelteComponent {
+        $destroy() {
+            destroy_component(this, 1);
+            this.$destroy = noop;
+        }
+        $on(type, callback) {
+            const callbacks = (this.$$.callbacks[type] || (this.$$.callbacks[type] = []));
+            callbacks.push(callback);
+            return () => {
+                const index = callbacks.indexOf(callback);
+                if (index !== -1)
+                    callbacks.splice(index, 1);
+            };
+        }
+        $set() {
+            // overridden by instance, if it has props
+        }
+    }
+
+    function dispatch_dev(type, detail) {
+        document.dispatchEvent(custom_event(type, Object.assign({ version: '3.19.2' }, detail)));
+    }
+    function append_dev(target, node) {
+        dispatch_dev("SvelteDOMInsert", { target, node });
+        append(target, node);
+    }
+    function insert_dev(target, node, anchor) {
+        dispatch_dev("SvelteDOMInsert", { target, node, anchor });
+        insert(target, node, anchor);
+    }
+    function detach_dev(node) {
+        dispatch_dev("SvelteDOMRemove", { node });
+        detach(node);
+    }
+    function listen_dev(node, event, handler, options, has_prevent_default, has_stop_propagation) {
+        const modifiers = options === true ? ["capture"] : options ? Array.from(Object.keys(options)) : [];
+        if (has_prevent_default)
+            modifiers.push('preventDefault');
+        if (has_stop_propagation)
+            modifiers.push('stopPropagation');
+        dispatch_dev("SvelteDOMAddEventListener", { node, event, handler, modifiers });
+        const dispose = listen(node, event, handler, options);
+        return () => {
+            dispatch_dev("SvelteDOMRemoveEventListener", { node, event, handler, modifiers });
+            dispose();
+        };
+    }
+    function attr_dev(node, attribute, value) {
+        attr(node, attribute, value);
+        if (value == null)
+            dispatch_dev("SvelteDOMRemoveAttribute", { node, attribute });
+        else
+            dispatch_dev("SvelteDOMSetAttribute", { node, attribute, value });
+    }
+    function set_data_dev(text, data) {
+        data = '' + data;
+        if (text.data === data)
+            return;
+        dispatch_dev("SvelteDOMSetData", { node: text, data });
+        text.data = data;
+    }
+    function validate_slots(name, slot, keys) {
+        for (const slot_key of Object.keys(slot)) {
+            if (!~keys.indexOf(slot_key)) {
+                console.warn(`<${name}> received an unexpected slot "${slot_key}".`);
+            }
+        }
+    }
+    class SvelteComponentDev extends SvelteComponent {
+        constructor(options) {
+            if (!options || (!options.target && !options.$$inline)) {
+                throw new Error(`'target' is a required option`);
+            }
+            super();
+        }
+        $destroy() {
+            super.$destroy();
+            this.$destroy = () => {
+                console.warn(`Component was already destroyed`); // eslint-disable-line no-console
+            };
+        }
+        $capture_state() { }
+        $inject_state() { }
+    }
+
+    function cubicOut(t) {
+        const f = t - 1.0;
+        return f * f * f + 1.0;
+    }
+
+    function fade(node, { delay = 0, duration = 400, easing = identity }) {
+        const o = +getComputedStyle(node).opacity;
+        return {
+            delay,
+            duration,
+            easing,
+            css: t => `opacity: ${t * o}`
+        };
+    }
+    function fly(node, { delay = 0, duration = 400, easing = cubicOut, x = 0, y = 0, opacity = 0 }) {
+        const style = getComputedStyle(node);
+        const target_opacity = +style.opacity;
+        const transform = style.transform === 'none' ? '' : style.transform;
+        const od = target_opacity * (1 - opacity);
+        return {
+            delay,
+            duration,
+            easing,
+            css: (t, u) => `
+			transform: ${transform} translate(${(1 - t) * x}px, ${(1 - t) * y}px);
+			opacity: ${target_opacity - (od * u)}`
+        };
+    }
+
+    function requiredArgs(required, args) {
+      if (args.length < required) {
+        throw new TypeError(required + ' argument' + required > 1 ? 's' : '' + ' required, but only ' + args.length + ' present');
+      }
+    }
+
+    /**
+     * @name toDate
+     * @category Common Helpers
+     * @summary Convert the given argument to an instance of Date.
+     *
+     * @description
+     * Convert the given argument to an instance of Date.
+     *
+     * If the argument is an instance of Date, the function returns its clone.
+     *
+     * If the argument is a number, it is treated as a timestamp.
+     *
+     * If the argument is none of the above, the function returns Invalid Date.
+     *
+     * **Note**: *all* Date arguments passed to any *date-fns* function is processed by `toDate`.
+     *
+     * @param {Date|Number} argument - the value to convert
+     * @returns {Date} the parsed date in the local time zone
+     * @throws {TypeError} 1 argument required
+     *
+     * @example
+     * // Clone the date:
+     * const result = toDate(new Date(2014, 1, 11, 11, 30, 30))
+     * //=> Tue Feb 11 2014 11:30:30
+     *
+     * @example
+     * // Convert the timestamp to date:
+     * const result = toDate(1392098430000)
+     * //=> Tue Feb 11 2014 11:30:30
+     */
+
+    function toDate(argument) {
+      requiredArgs(1, arguments);
+      var argStr = Object.prototype.toString.call(argument); // Clone the date
+
+      if (argument instanceof Date || typeof argument === 'object' && argStr === '[object Date]') {
+        // Prevent the date to lose the milliseconds when passed to new Date() in IE10
+        return new Date(argument.getTime());
+      } else if (typeof argument === 'number' || argStr === '[object Number]') {
+        return new Date(argument);
+      } else {
+        if ((typeof argument === 'string' || argStr === '[object String]') && typeof console !== 'undefined') {
+          // eslint-disable-next-line no-console
+          console.warn("Starting with v2.0.0-beta.1 date-fns doesn't accept strings as arguments. Please use `parseISO` to parse strings. See: https://git.io/fjule"); // eslint-disable-next-line no-console
+
+          console.warn(new Error().stack);
+        }
+
+        return new Date(NaN);
+      }
+    }
+
+    var MILLISECONDS_IN_MINUTE = 60000;
+
+    function getDateMillisecondsPart(date) {
+      return date.getTime() % MILLISECONDS_IN_MINUTE;
+    }
+    /**
+     * Google Chrome as of 67.0.3396.87 introduced timezones with offset that includes seconds.
+     * They usually appear for dates that denote time before the timezones were introduced
+     * (e.g. for 'Europe/Prague' timezone the offset is GMT+00:57:44 before 1 October 1891
+     * and GMT+01:00:00 after that date)
+     *
+     * Date#getTimezoneOffset returns the offset in minutes and would return 57 for the example above,
+     * which would lead to incorrect calculations.
+     *
+     * This function returns the timezone offset in milliseconds that takes seconds in account.
+     */
+
+
+    function getTimezoneOffsetInMilliseconds(dirtyDate) {
+      var date = new Date(dirtyDate.getTime());
+      var baseTimezoneOffset = Math.ceil(date.getTimezoneOffset());
+      date.setSeconds(0, 0);
+      var hasNegativeUTCOffset = baseTimezoneOffset > 0;
+      var millisecondsPartOfTimezoneOffset = hasNegativeUTCOffset ? (MILLISECONDS_IN_MINUTE + getDateMillisecondsPart(date)) % MILLISECONDS_IN_MINUTE : getDateMillisecondsPart(date);
+      return baseTimezoneOffset * MILLISECONDS_IN_MINUTE + millisecondsPartOfTimezoneOffset;
+    }
+
+    /**
+     * @name compareAsc
+     * @category Common Helpers
+     * @summary Compare the two dates and return -1, 0 or 1.
+     *
+     * @description
+     * Compare the two dates and return 1 if the first date is after the second,
+     * -1 if the first date is before the second or 0 if dates are equal.
+     *
+     * ### v2.0.0 breaking changes:
+     *
+     * - [Changes that are common for the whole library](https://github.com/date-fns/date-fns/blob/master/docs/upgradeGuide.md#Common-Changes).
+     *
+     * @param {Date|Number} dateLeft - the first date to compare
+     * @param {Date|Number} dateRight - the second date to compare
+     * @returns {Number} the result of the comparison
+     * @throws {TypeError} 2 arguments required
+     *
+     * @example
+     * // Compare 11 February 1987 and 10 July 1989:
+     * var result = compareAsc(new Date(1987, 1, 11), new Date(1989, 6, 10))
+     * //=> -1
+     *
+     * @example
+     * // Sort the array of dates:
+     * var result = [
+     *   new Date(1995, 6, 2),
+     *   new Date(1987, 1, 11),
+     *   new Date(1989, 6, 10)
+     * ].sort(compareAsc)
+     * //=> [
+     * //   Wed Feb 11 1987 00:00:00,
+     * //   Mon Jul 10 1989 00:00:00,
+     * //   Sun Jul 02 1995 00:00:00
+     * // ]
+     */
+
+    function compareAsc(dirtyDateLeft, dirtyDateRight) {
+      requiredArgs(2, arguments);
+      var dateLeft = toDate(dirtyDateLeft);
+      var dateRight = toDate(dirtyDateRight);
+      var diff = dateLeft.getTime() - dateRight.getTime();
+
+      if (diff < 0) {
+        return -1;
+      } else if (diff > 0) {
+        return 1; // Return 0 if diff is 0; return NaN if diff is NaN
+      } else {
+        return diff;
+      }
+    }
+
+    /**
+     * @name differenceInCalendarMonths
+     * @category Month Helpers
+     * @summary Get the number of calendar months between the given dates.
+     *
+     * @description
+     * Get the number of calendar months between the given dates.
+     *
+     * ### v2.0.0 breaking changes:
+     *
+     * - [Changes that are common for the whole library](https://github.com/date-fns/date-fns/blob/master/docs/upgradeGuide.md#Common-Changes).
+     *
+     * @param {Date|Number} dateLeft - the later date
+     * @param {Date|Number} dateRight - the earlier date
+     * @returns {Number} the number of calendar months
+     * @throws {TypeError} 2 arguments required
+     *
+     * @example
+     * // How many calendar months are between 31 January 2014 and 1 September 2014?
+     * var result = differenceInCalendarMonths(
+     *   new Date(2014, 8, 1),
+     *   new Date(2014, 0, 31)
+     * )
+     * //=> 8
+     */
+
+    function differenceInCalendarMonths(dirtyDateLeft, dirtyDateRight) {
+      requiredArgs(2, arguments);
+      var dateLeft = toDate(dirtyDateLeft);
+      var dateRight = toDate(dirtyDateRight);
+      var yearDiff = dateLeft.getFullYear() - dateRight.getFullYear();
+      var monthDiff = dateLeft.getMonth() - dateRight.getMonth();
+      return yearDiff * 12 + monthDiff;
+    }
+
+    /**
+     * @name differenceInMilliseconds
+     * @category Millisecond Helpers
+     * @summary Get the number of milliseconds between the given dates.
+     *
+     * @description
+     * Get the number of milliseconds between the given dates.
+     *
+     * ### v2.0.0 breaking changes:
+     *
+     * - [Changes that are common for the whole library](https://github.com/date-fns/date-fns/blob/master/docs/upgradeGuide.md#Common-Changes).
+     *
+     * @param {Date|Number} dateLeft - the later date
+     * @param {Date|Number} dateRight - the earlier date
+     * @returns {Number} the number of milliseconds
+     * @throws {TypeError} 2 arguments required
+     *
+     * @example
+     * // How many milliseconds are between
+     * // 2 July 2014 12:30:20.600 and 2 July 2014 12:30:21.700?
+     * var result = differenceInMilliseconds(
+     *   new Date(2014, 6, 2, 12, 30, 21, 700),
+     *   new Date(2014, 6, 2, 12, 30, 20, 600)
+     * )
+     * //=> 1100
+     */
+
+    function differenceInMilliseconds(dirtyDateLeft, dirtyDateRight) {
+      requiredArgs(2, arguments);
+      var dateLeft = toDate(dirtyDateLeft);
+      var dateRight = toDate(dirtyDateRight);
+      return dateLeft.getTime() - dateRight.getTime();
+    }
+
+    /**
+     * @name differenceInMonths
+     * @category Month Helpers
+     * @summary Get the number of full months between the given dates.
+     *
+     * @description
+     * Get the number of full months between the given dates.
+     *
+     * ### v2.0.0 breaking changes:
+     *
+     * - [Changes that are common for the whole library](https://github.com/date-fns/date-fns/blob/master/docs/upgradeGuide.md#Common-Changes).
+     *
+     * @param {Date|Number} dateLeft - the later date
+     * @param {Date|Number} dateRight - the earlier date
+     * @returns {Number} the number of full months
+     * @throws {TypeError} 2 arguments required
+     *
+     * @example
+     * // How many full months are between 31 January 2014 and 1 September 2014?
+     * var result = differenceInMonths(new Date(2014, 8, 1), new Date(2014, 0, 31))
+     * //=> 7
+     */
+
+    function differenceInMonths(dirtyDateLeft, dirtyDateRight) {
+      requiredArgs(2, arguments);
+      var dateLeft = toDate(dirtyDateLeft);
+      var dateRight = toDate(dirtyDateRight);
+      var sign = compareAsc(dateLeft, dateRight);
+      var difference = Math.abs(differenceInCalendarMonths(dateLeft, dateRight));
+      dateLeft.setMonth(dateLeft.getMonth() - sign * difference); // Math.abs(diff in full months - diff in calendar months) === 1 if last calendar month is not full
+      // If so, result must be decreased by 1 in absolute value
+
+      var isLastMonthNotFull = compareAsc(dateLeft, dateRight) === -sign;
+      var result = sign * (difference - isLastMonthNotFull); // Prevent negative zero
+
+      return result === 0 ? 0 : result;
+    }
+
+    /**
+     * @name differenceInSeconds
+     * @category Second Helpers
+     * @summary Get the number of seconds between the given dates.
+     *
+     * @description
+     * Get the number of seconds between the given dates.
+     *
+     * ### v2.0.0 breaking changes:
+     *
+     * - [Changes that are common for the whole library](https://github.com/date-fns/date-fns/blob/master/docs/upgradeGuide.md#Common-Changes).
+     *
+     * @param {Date|Number} dateLeft - the later date
+     * @param {Date|Number} dateRight - the earlier date
+     * @returns {Number} the number of seconds
+     * @throws {TypeError} 2 arguments required
+     *
+     * @example
+     * // How many seconds are between
+     * // 2 July 2014 12:30:07.999 and 2 July 2014 12:30:20.000?
+     * var result = differenceInSeconds(
+     *   new Date(2014, 6, 2, 12, 30, 20, 0),
+     *   new Date(2014, 6, 2, 12, 30, 7, 999)
+     * )
+     * //=> 12
+     */
+
+    function differenceInSeconds(dirtyDateLeft, dirtyDateRight) {
+      requiredArgs(2, arguments);
+      var diff = differenceInMilliseconds(dirtyDateLeft, dirtyDateRight) / 1000;
+      return diff > 0 ? Math.floor(diff) : Math.ceil(diff);
+    }
+
+    var formatDistanceLocale = {
+      lessThanXSeconds: {
+        one: 'less than a second',
+        other: 'less than {{count}} seconds'
+      },
+      xSeconds: {
+        one: '1 second',
+        other: '{{count}} seconds'
+      },
+      halfAMinute: 'half a minute',
+      lessThanXMinutes: {
+        one: 'less than a minute',
+        other: 'less than {{count}} minutes'
+      },
+      xMinutes: {
+        one: '1 minute',
+        other: '{{count}} minutes'
+      },
+      aboutXHours: {
+        one: 'about 1 hour',
+        other: 'about {{count}} hours'
+      },
+      xHours: {
+        one: '1 hour',
+        other: '{{count}} hours'
+      },
+      xDays: {
+        one: '1 day',
+        other: '{{count}} days'
+      },
+      aboutXMonths: {
+        one: 'about 1 month',
+        other: 'about {{count}} months'
+      },
+      xMonths: {
+        one: '1 month',
+        other: '{{count}} months'
+      },
+      aboutXYears: {
+        one: 'about 1 year',
+        other: 'about {{count}} years'
+      },
+      xYears: {
+        one: '1 year',
+        other: '{{count}} years'
+      },
+      overXYears: {
+        one: 'over 1 year',
+        other: 'over {{count}} years'
+      },
+      almostXYears: {
+        one: 'almost 1 year',
+        other: 'almost {{count}} years'
+      }
+    };
+    function formatDistance(token, count, options) {
+      options = options || {};
+      var result;
+
+      if (typeof formatDistanceLocale[token] === 'string') {
+        result = formatDistanceLocale[token];
+      } else if (count === 1) {
+        result = formatDistanceLocale[token].one;
+      } else {
+        result = formatDistanceLocale[token].other.replace('{{count}}', count);
+      }
+
+      if (options.addSuffix) {
+        if (options.comparison > 0) {
+          return 'in ' + result;
+        } else {
+          return result + ' ago';
+        }
+      }
+
+      return result;
+    }
+
+    function buildFormatLongFn(args) {
+      return function (dirtyOptions) {
+        var options = dirtyOptions || {};
+        var width = options.width ? String(options.width) : args.defaultWidth;
+        var format = args.formats[width] || args.formats[args.defaultWidth];
+        return format;
+      };
+    }
+
+    var dateFormats = {
+      full: 'EEEE, MMMM do, y',
+      long: 'MMMM do, y',
+      medium: 'MMM d, y',
+      short: 'MM/dd/yyyy'
+    };
+    var timeFormats = {
+      full: 'h:mm:ss a zzzz',
+      long: 'h:mm:ss a z',
+      medium: 'h:mm:ss a',
+      short: 'h:mm a'
+    };
+    var dateTimeFormats = {
+      full: "{{date}} 'at' {{time}}",
+      long: "{{date}} 'at' {{time}}",
+      medium: '{{date}}, {{time}}',
+      short: '{{date}}, {{time}}'
+    };
+    var formatLong = {
+      date: buildFormatLongFn({
+        formats: dateFormats,
+        defaultWidth: 'full'
+      }),
+      time: buildFormatLongFn({
+        formats: timeFormats,
+        defaultWidth: 'full'
+      }),
+      dateTime: buildFormatLongFn({
+        formats: dateTimeFormats,
+        defaultWidth: 'full'
+      })
+    };
+
+    var formatRelativeLocale = {
+      lastWeek: "'last' eeee 'at' p",
+      yesterday: "'yesterday at' p",
+      today: "'today at' p",
+      tomorrow: "'tomorrow at' p",
+      nextWeek: "eeee 'at' p",
+      other: 'P'
+    };
+    function formatRelative(token, _date, _baseDate, _options) {
+      return formatRelativeLocale[token];
+    }
+
+    function buildLocalizeFn(args) {
+      return function (dirtyIndex, dirtyOptions) {
+        var options = dirtyOptions || {};
+        var context = options.context ? String(options.context) : 'standalone';
+        var valuesArray;
+
+        if (context === 'formatting' && args.formattingValues) {
+          var defaultWidth = args.defaultFormattingWidth || args.defaultWidth;
+          var width = options.width ? String(options.width) : defaultWidth;
+          valuesArray = args.formattingValues[width] || args.formattingValues[defaultWidth];
+        } else {
+          var _defaultWidth = args.defaultWidth;
+
+          var _width = options.width ? String(options.width) : args.defaultWidth;
+
+          valuesArray = args.values[_width] || args.values[_defaultWidth];
+        }
+
+        var index = args.argumentCallback ? args.argumentCallback(dirtyIndex) : dirtyIndex;
+        return valuesArray[index];
+      };
+    }
+
+    var eraValues = {
+      narrow: ['B', 'A'],
+      abbreviated: ['BC', 'AD'],
+      wide: ['Before Christ', 'Anno Domini']
+    };
+    var quarterValues = {
+      narrow: ['1', '2', '3', '4'],
+      abbreviated: ['Q1', 'Q2', 'Q3', 'Q4'],
+      wide: ['1st quarter', '2nd quarter', '3rd quarter', '4th quarter'] // Note: in English, the names of days of the week and months are capitalized.
+      // If you are making a new locale based on this one, check if the same is true for the language you're working on.
+      // Generally, formatted dates should look like they are in the middle of a sentence,
+      // e.g. in Spanish language the weekdays and months should be in the lowercase.
+
+    };
+    var monthValues = {
+      narrow: ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'],
+      abbreviated: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+      wide: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+    };
+    var dayValues = {
+      narrow: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
+      short: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+      abbreviated: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+      wide: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+    };
+    var dayPeriodValues = {
+      narrow: {
+        am: 'a',
+        pm: 'p',
+        midnight: 'mi',
+        noon: 'n',
+        morning: 'morning',
+        afternoon: 'afternoon',
+        evening: 'evening',
+        night: 'night'
+      },
+      abbreviated: {
+        am: 'AM',
+        pm: 'PM',
+        midnight: 'midnight',
+        noon: 'noon',
+        morning: 'morning',
+        afternoon: 'afternoon',
+        evening: 'evening',
+        night: 'night'
+      },
+      wide: {
+        am: 'a.m.',
+        pm: 'p.m.',
+        midnight: 'midnight',
+        noon: 'noon',
+        morning: 'morning',
+        afternoon: 'afternoon',
+        evening: 'evening',
+        night: 'night'
+      }
+    };
+    var formattingDayPeriodValues = {
+      narrow: {
+        am: 'a',
+        pm: 'p',
+        midnight: 'mi',
+        noon: 'n',
+        morning: 'in the morning',
+        afternoon: 'in the afternoon',
+        evening: 'in the evening',
+        night: 'at night'
+      },
+      abbreviated: {
+        am: 'AM',
+        pm: 'PM',
+        midnight: 'midnight',
+        noon: 'noon',
+        morning: 'in the morning',
+        afternoon: 'in the afternoon',
+        evening: 'in the evening',
+        night: 'at night'
+      },
+      wide: {
+        am: 'a.m.',
+        pm: 'p.m.',
+        midnight: 'midnight',
+        noon: 'noon',
+        morning: 'in the morning',
+        afternoon: 'in the afternoon',
+        evening: 'in the evening',
+        night: 'at night'
+      }
+    };
+
+    function ordinalNumber(dirtyNumber, _dirtyOptions) {
+      var number = Number(dirtyNumber); // If ordinal numbers depend on context, for example,
+      // if they are different for different grammatical genders,
+      // use `options.unit`:
+      //
+      //   var options = dirtyOptions || {}
+      //   var unit = String(options.unit)
+      //
+      // where `unit` can be 'year', 'quarter', 'month', 'week', 'date', 'dayOfYear',
+      // 'day', 'hour', 'minute', 'second'
+
+      var rem100 = number % 100;
+
+      if (rem100 > 20 || rem100 < 10) {
+        switch (rem100 % 10) {
+          case 1:
+            return number + 'st';
+
+          case 2:
+            return number + 'nd';
+
+          case 3:
+            return number + 'rd';
+        }
+      }
+
+      return number + 'th';
+    }
+
+    var localize = {
+      ordinalNumber: ordinalNumber,
+      era: buildLocalizeFn({
+        values: eraValues,
+        defaultWidth: 'wide'
+      }),
+      quarter: buildLocalizeFn({
+        values: quarterValues,
+        defaultWidth: 'wide',
+        argumentCallback: function (quarter) {
+          return Number(quarter) - 1;
+        }
+      }),
+      month: buildLocalizeFn({
+        values: monthValues,
+        defaultWidth: 'wide'
+      }),
+      day: buildLocalizeFn({
+        values: dayValues,
+        defaultWidth: 'wide'
+      }),
+      dayPeriod: buildLocalizeFn({
+        values: dayPeriodValues,
+        defaultWidth: 'wide',
+        formattingValues: formattingDayPeriodValues,
+        defaultFormattingWidth: 'wide'
+      })
+    };
+
+    function buildMatchPatternFn(args) {
+      return function (dirtyString, dirtyOptions) {
+        var string = String(dirtyString);
+        var options = dirtyOptions || {};
+        var matchResult = string.match(args.matchPattern);
+
+        if (!matchResult) {
+          return null;
+        }
+
+        var matchedString = matchResult[0];
+        var parseResult = string.match(args.parsePattern);
+
+        if (!parseResult) {
+          return null;
+        }
+
+        var value = args.valueCallback ? args.valueCallback(parseResult[0]) : parseResult[0];
+        value = options.valueCallback ? options.valueCallback(value) : value;
+        return {
+          value: value,
+          rest: string.slice(matchedString.length)
+        };
+      };
+    }
+
+    function buildMatchFn(args) {
+      return function (dirtyString, dirtyOptions) {
+        var string = String(dirtyString);
+        var options = dirtyOptions || {};
+        var width = options.width;
+        var matchPattern = width && args.matchPatterns[width] || args.matchPatterns[args.defaultMatchWidth];
+        var matchResult = string.match(matchPattern);
+
+        if (!matchResult) {
+          return null;
+        }
+
+        var matchedString = matchResult[0];
+        var parsePatterns = width && args.parsePatterns[width] || args.parsePatterns[args.defaultParseWidth];
+        var value;
+
+        if (Object.prototype.toString.call(parsePatterns) === '[object Array]') {
+          value = findIndex(parsePatterns, function (pattern) {
+            return pattern.test(string);
+          });
+        } else {
+          value = findKey(parsePatterns, function (pattern) {
+            return pattern.test(string);
+          });
+        }
+
+        value = args.valueCallback ? args.valueCallback(value) : value;
+        value = options.valueCallback ? options.valueCallback(value) : value;
+        return {
+          value: value,
+          rest: string.slice(matchedString.length)
+        };
+      };
+    }
+
+    function findKey(object, predicate) {
+      for (var key in object) {
+        if (object.hasOwnProperty(key) && predicate(object[key])) {
+          return key;
+        }
+      }
+    }
+
+    function findIndex(array, predicate) {
+      for (var key = 0; key < array.length; key++) {
+        if (predicate(array[key])) {
+          return key;
+        }
+      }
+    }
+
+    var matchOrdinalNumberPattern = /^(\d+)(th|st|nd|rd)?/i;
+    var parseOrdinalNumberPattern = /\d+/i;
+    var matchEraPatterns = {
+      narrow: /^(b|a)/i,
+      abbreviated: /^(b\.?\s?c\.?|b\.?\s?c\.?\s?e\.?|a\.?\s?d\.?|c\.?\s?e\.?)/i,
+      wide: /^(before christ|before common era|anno domini|common era)/i
+    };
+    var parseEraPatterns = {
+      any: [/^b/i, /^(a|c)/i]
+    };
+    var matchQuarterPatterns = {
+      narrow: /^[1234]/i,
+      abbreviated: /^q[1234]/i,
+      wide: /^[1234](th|st|nd|rd)? quarter/i
+    };
+    var parseQuarterPatterns = {
+      any: [/1/i, /2/i, /3/i, /4/i]
+    };
+    var matchMonthPatterns = {
+      narrow: /^[jfmasond]/i,
+      abbreviated: /^(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)/i,
+      wide: /^(january|february|march|april|may|june|july|august|september|october|november|december)/i
+    };
+    var parseMonthPatterns = {
+      narrow: [/^j/i, /^f/i, /^m/i, /^a/i, /^m/i, /^j/i, /^j/i, /^a/i, /^s/i, /^o/i, /^n/i, /^d/i],
+      any: [/^ja/i, /^f/i, /^mar/i, /^ap/i, /^may/i, /^jun/i, /^jul/i, /^au/i, /^s/i, /^o/i, /^n/i, /^d/i]
+    };
+    var matchDayPatterns = {
+      narrow: /^[smtwf]/i,
+      short: /^(su|mo|tu|we|th|fr|sa)/i,
+      abbreviated: /^(sun|mon|tue|wed|thu|fri|sat)/i,
+      wide: /^(sunday|monday|tuesday|wednesday|thursday|friday|saturday)/i
+    };
+    var parseDayPatterns = {
+      narrow: [/^s/i, /^m/i, /^t/i, /^w/i, /^t/i, /^f/i, /^s/i],
+      any: [/^su/i, /^m/i, /^tu/i, /^w/i, /^th/i, /^f/i, /^sa/i]
+    };
+    var matchDayPeriodPatterns = {
+      narrow: /^(a|p|mi|n|(in the|at) (morning|afternoon|evening|night))/i,
+      any: /^([ap]\.?\s?m\.?|midnight|noon|(in the|at) (morning|afternoon|evening|night))/i
+    };
+    var parseDayPeriodPatterns = {
+      any: {
+        am: /^a/i,
+        pm: /^p/i,
+        midnight: /^mi/i,
+        noon: /^no/i,
+        morning: /morning/i,
+        afternoon: /afternoon/i,
+        evening: /evening/i,
+        night: /night/i
+      }
+    };
+    var match = {
+      ordinalNumber: buildMatchPatternFn({
+        matchPattern: matchOrdinalNumberPattern,
+        parsePattern: parseOrdinalNumberPattern,
+        valueCallback: function (value) {
+          return parseInt(value, 10);
+        }
+      }),
+      era: buildMatchFn({
+        matchPatterns: matchEraPatterns,
+        defaultMatchWidth: 'wide',
+        parsePatterns: parseEraPatterns,
+        defaultParseWidth: 'any'
+      }),
+      quarter: buildMatchFn({
+        matchPatterns: matchQuarterPatterns,
+        defaultMatchWidth: 'wide',
+        parsePatterns: parseQuarterPatterns,
+        defaultParseWidth: 'any',
+        valueCallback: function (index) {
+          return index + 1;
+        }
+      }),
+      month: buildMatchFn({
+        matchPatterns: matchMonthPatterns,
+        defaultMatchWidth: 'wide',
+        parsePatterns: parseMonthPatterns,
+        defaultParseWidth: 'any'
+      }),
+      day: buildMatchFn({
+        matchPatterns: matchDayPatterns,
+        defaultMatchWidth: 'wide',
+        parsePatterns: parseDayPatterns,
+        defaultParseWidth: 'any'
+      }),
+      dayPeriod: buildMatchFn({
+        matchPatterns: matchDayPeriodPatterns,
+        defaultMatchWidth: 'any',
+        parsePatterns: parseDayPeriodPatterns,
+        defaultParseWidth: 'any'
+      })
+    };
+
+    /**
+     * @type {Locale}
+     * @category Locales
+     * @summary English locale (United States).
+     * @language English
+     * @iso-639-2 eng
+     * @author Sasha Koss [@kossnocorp]{@link https://github.com/kossnocorp}
+     * @author Lesha Koss [@leshakoss]{@link https://github.com/leshakoss}
+     */
+
+    var locale = {
+      code: 'en-US',
+      formatDistance: formatDistance,
+      formatLong: formatLong,
+      formatRelative: formatRelative,
+      localize: localize,
+      match: match,
+      options: {
+        weekStartsOn: 0
+        /* Sunday */
+        ,
+        firstWeekContainsDate: 1
+      }
+    };
+
+    function assign(target, dirtyObject) {
+      if (target == null) {
+        throw new TypeError('assign requires that input parameter not be null or undefined');
+      }
+
+      dirtyObject = dirtyObject || {};
+
+      for (var property in dirtyObject) {
+        if (dirtyObject.hasOwnProperty(property)) {
+          target[property] = dirtyObject[property];
+        }
+      }
+
+      return target;
+    }
+
+    function cloneObject(dirtyObject) {
+      return assign({}, dirtyObject);
+    }
+
+    var MINUTES_IN_DAY = 1440;
+    var MINUTES_IN_ALMOST_TWO_DAYS = 2520;
+    var MINUTES_IN_MONTH = 43200;
+    var MINUTES_IN_TWO_MONTHS = 86400;
+    /**
+     * @name formatDistance
+     * @category Common Helpers
+     * @summary Return the distance between the given dates in words.
+     *
+     * @description
+     * Return the distance between the given dates in words.
+     *
+     * | Distance between dates                                            | Result              |
+     * |-------------------------------------------------------------------|---------------------|
+     * | 0 ... 30 secs                                                     | less than a minute  |
+     * | 30 secs ... 1 min 30 secs                                         | 1 minute            |
+     * | 1 min 30 secs ... 44 mins 30 secs                                 | [2..44] minutes     |
+     * | 44 mins ... 30 secs ... 89 mins 30 secs                           | about 1 hour        |
+     * | 89 mins 30 secs ... 23 hrs 59 mins 30 secs                        | about [2..24] hours |
+     * | 23 hrs 59 mins 30 secs ... 41 hrs 59 mins 30 secs                 | 1 day               |
+     * | 41 hrs 59 mins 30 secs ... 29 days 23 hrs 59 mins 30 secs         | [2..30] days        |
+     * | 29 days 23 hrs 59 mins 30 secs ... 44 days 23 hrs 59 mins 30 secs | about 1 month       |
+     * | 44 days 23 hrs 59 mins 30 secs ... 59 days 23 hrs 59 mins 30 secs | about 2 months      |
+     * | 59 days 23 hrs 59 mins 30 secs ... 1 yr                           | [2..12] months      |
+     * | 1 yr ... 1 yr 3 months                                            | about 1 year        |
+     * | 1 yr 3 months ... 1 yr 9 month s                                  | over 1 year         |
+     * | 1 yr 9 months ... 2 yrs                                           | almost 2 years      |
+     * | N yrs ... N yrs 3 months                                          | about N years       |
+     * | N yrs 3 months ... N yrs 9 months                                 | over N years        |
+     * | N yrs 9 months ... N+1 yrs                                        | almost N+1 years    |
+     *
+     * With `options.includeSeconds == true`:
+     * | Distance between dates | Result               |
+     * |------------------------|----------------------|
+     * | 0 secs ... 5 secs      | less than 5 seconds  |
+     * | 5 secs ... 10 secs     | less than 10 seconds |
+     * | 10 secs ... 20 secs    | less than 20 seconds |
+     * | 20 secs ... 40 secs    | half a minute        |
+     * | 40 secs ... 60 secs    | less than a minute   |
+     * | 60 secs ... 90 secs    | 1 minute             |
+     *
+     * ### v2.0.0 breaking changes:
+     *
+     * - [Changes that are common for the whole library](https://github.com/date-fns/date-fns/blob/master/docs/upgradeGuide.md#Common-Changes).
+     *
+     * - The function was renamed from `distanceInWords ` to `formatDistance`
+     *   to make its name consistent with `format` and `formatRelative`.
+     *
+     * - The order of arguments is swapped to make the function
+     *   consistent with `differenceIn...` functions.
+     *
+     *   ```javascript
+     *   // Before v2.0.0
+     *
+     *   distanceInWords(
+     *     new Date(1986, 3, 4, 10, 32, 0),
+     *     new Date(1986, 3, 4, 11, 32, 0),
+     *     { addSuffix: true }
+     *   ) //=> 'in about 1 hour'
+     *
+     *   // v2.0.0 onward
+     *
+     *   formatDistance(
+     *     new Date(1986, 3, 4, 11, 32, 0),
+     *     new Date(1986, 3, 4, 10, 32, 0),
+     *     { addSuffix: true }
+     *   ) //=> 'in about 1 hour'
+     *   ```
+     *
+     * @param {Date|Number} date - the date
+     * @param {Date|Number} baseDate - the date to compare with
+     * @param {Object} [options] - an object with options.
+     * @param {Boolean} [options.includeSeconds=false] - distances less than a minute are more detailed
+     * @param {Boolean} [options.addSuffix=false] - result indicates if the second date is earlier or later than the first
+     * @param {Locale} [options.locale=defaultLocale] - the locale object. See [Locale]{@link https://date-fns.org/docs/Locale}
+     * @returns {String} the distance in words
+     * @throws {TypeError} 2 arguments required
+     * @throws {RangeError} `date` must not be Invalid Date
+     * @throws {RangeError} `baseDate` must not be Invalid Date
+     * @throws {RangeError} `options.locale` must contain `formatDistance` property
+     *
+     * @example
+     * // What is the distance between 2 July 2014 and 1 January 2015?
+     * var result = formatDistance(new Date(2014, 6, 2), new Date(2015, 0, 1))
+     * //=> '6 months'
+     *
+     * @example
+     * // What is the distance between 1 January 2015 00:00:15
+     * // and 1 January 2015 00:00:00, including seconds?
+     * var result = formatDistance(
+     *   new Date(2015, 0, 1, 0, 0, 15),
+     *   new Date(2015, 0, 1, 0, 0, 0),
+     *   { includeSeconds: true }
+     * )
+     * //=> 'less than 20 seconds'
+     *
+     * @example
+     * // What is the distance from 1 January 2016
+     * // to 1 January 2015, with a suffix?
+     * var result = formatDistance(new Date(2015, 0, 1), new Date(2016, 0, 1), {
+     *   addSuffix: true
+     * })
+     * //=> 'about 1 year ago'
+     *
+     * @example
+     * // What is the distance between 1 August 2016 and 1 January 2015 in Esperanto?
+     * import { eoLocale } from 'date-fns/locale/eo'
+     * var result = formatDistance(new Date(2016, 7, 1), new Date(2015, 0, 1), {
+     *   locale: eoLocale
+     * })
+     * //=> 'pli ol 1 jaro'
+     */
+
+    function formatDistance$1(dirtyDate, dirtyBaseDate, dirtyOptions) {
+      requiredArgs(2, arguments);
+      var options = dirtyOptions || {};
+      var locale$1 = options.locale || locale;
+
+      if (!locale$1.formatDistance) {
+        throw new RangeError('locale must contain formatDistance property');
+      }
+
+      var comparison = compareAsc(dirtyDate, dirtyBaseDate);
+
+      if (isNaN(comparison)) {
+        throw new RangeError('Invalid time value');
+      }
+
+      var localizeOptions = cloneObject(options);
+      localizeOptions.addSuffix = Boolean(options.addSuffix);
+      localizeOptions.comparison = comparison;
+      var dateLeft;
+      var dateRight;
+
+      if (comparison > 0) {
+        dateLeft = toDate(dirtyBaseDate);
+        dateRight = toDate(dirtyDate);
+      } else {
+        dateLeft = toDate(dirtyDate);
+        dateRight = toDate(dirtyBaseDate);
+      }
+
+      var seconds = differenceInSeconds(dateRight, dateLeft);
+      var offsetInSeconds = (getTimezoneOffsetInMilliseconds(dateRight) - getTimezoneOffsetInMilliseconds(dateLeft)) / 1000;
+      var minutes = Math.round((seconds - offsetInSeconds) / 60);
+      var months; // 0 up to 2 mins
+
+      if (minutes < 2) {
+        if (options.includeSeconds) {
+          if (seconds < 5) {
+            return locale$1.formatDistance('lessThanXSeconds', 5, localizeOptions);
+          } else if (seconds < 10) {
+            return locale$1.formatDistance('lessThanXSeconds', 10, localizeOptions);
+          } else if (seconds < 20) {
+            return locale$1.formatDistance('lessThanXSeconds', 20, localizeOptions);
+          } else if (seconds < 40) {
+            return locale$1.formatDistance('halfAMinute', null, localizeOptions);
+          } else if (seconds < 60) {
+            return locale$1.formatDistance('lessThanXMinutes', 1, localizeOptions);
+          } else {
+            return locale$1.formatDistance('xMinutes', 1, localizeOptions);
+          }
+        } else {
+          if (minutes === 0) {
+            return locale$1.formatDistance('lessThanXMinutes', 1, localizeOptions);
+          } else {
+            return locale$1.formatDistance('xMinutes', minutes, localizeOptions);
+          }
+        } // 2 mins up to 0.75 hrs
+
+      } else if (minutes < 45) {
+        return locale$1.formatDistance('xMinutes', minutes, localizeOptions); // 0.75 hrs up to 1.5 hrs
+      } else if (minutes < 90) {
+        return locale$1.formatDistance('aboutXHours', 1, localizeOptions); // 1.5 hrs up to 24 hrs
+      } else if (minutes < MINUTES_IN_DAY) {
+        var hours = Math.round(minutes / 60);
+        return locale$1.formatDistance('aboutXHours', hours, localizeOptions); // 1 day up to 1.75 days
+      } else if (minutes < MINUTES_IN_ALMOST_TWO_DAYS) {
+        return locale$1.formatDistance('xDays', 1, localizeOptions); // 1.75 days up to 30 days
+      } else if (minutes < MINUTES_IN_MONTH) {
+        var days = Math.round(minutes / MINUTES_IN_DAY);
+        return locale$1.formatDistance('xDays', days, localizeOptions); // 1 month up to 2 months
+      } else if (minutes < MINUTES_IN_TWO_MONTHS) {
+        months = Math.round(minutes / MINUTES_IN_MONTH);
+        return locale$1.formatDistance('aboutXMonths', months, localizeOptions);
+      }
+
+      months = differenceInMonths(dateRight, dateLeft); // 2 months up to 12 months
+
+      if (months < 12) {
+        var nearestMonth = Math.round(minutes / MINUTES_IN_MONTH);
+        return locale$1.formatDistance('xMonths', nearestMonth, localizeOptions); // 1 year up to max Date
+      } else {
+        var monthsSinceStartOfYear = months % 12;
+        var years = Math.floor(months / 12); // N years up to 1 years 3 months
+
+        if (monthsSinceStartOfYear < 3) {
+          return locale$1.formatDistance('aboutXYears', years, localizeOptions); // N years 3 months up to N years 9 months
+        } else if (monthsSinceStartOfYear < 9) {
+          return locale$1.formatDistance('overXYears', years, localizeOptions); // N years 9 months up to N year 12 months
+        } else {
+          return locale$1.formatDistance('almostXYears', years + 1, localizeOptions);
+        }
+      }
+    }
+
+    /* src/NowPlaying.svelte generated by Svelte v3.19.2 */
+
+    const { console: console_1 } = globals;
+    const file = "src/NowPlaying.svelte";
+
+    // (1:0) <script>   import { onMount }
+    function create_catch_block(ctx) {
+    	const block = { c: noop, m: noop, p: noop, d: noop };
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_catch_block.name,
+    		type: "catch",
+    		source: "(1:0) <script>   import { onMount }",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (76:2) {:then recentTracks}
+    function create_then_block(ctx) {
+    	let div5;
+    	let div0;
+    	let img;
+    	let img_src_value;
+    	let t0;
+    	let div4;
+    	let div1;
+    	let t1_value = /*currentSong*/ ctx[1].name + "";
+    	let t1;
+    	let t2;
+    	let div2;
+    	let t3_value = /*currentSong*/ ctx[1].artist["#text"] + "";
+    	let t3;
+    	let t4;
+    	let div3;
+    	let t5_value = /*currentSong*/ ctx[1].album["#text"] + "";
+    	let t5;
+    	let t6;
+
+    	function select_block_type(ctx, dirty) {
+    		if (/*currentSong*/ ctx[1]["@attr"]) return create_if_block_2;
+    		return create_else_block;
+    	}
+
+    	let current_block_type = select_block_type(ctx);
+    	let if_block = current_block_type(ctx);
+
+    	const block = {
+    		c: function create() {
+    			div5 = element("div");
+    			div0 = element("div");
+    			img = element("img");
+    			t0 = space();
+    			div4 = element("div");
+    			div1 = element("div");
+    			t1 = text(t1_value);
+    			t2 = space();
+    			div2 = element("div");
+    			t3 = text(t3_value);
+    			t4 = space();
+    			div3 = element("div");
+    			t5 = text(t5_value);
+    			t6 = space();
+    			if_block.c();
+    			if (img.src !== (img_src_value = /*currentSong*/ ctx[1].image[2]["#text"])) attr_dev(img, "src", img_src_value);
+    			attr_dev(img, "alt", "album cover");
+    			add_location(img, file, 78, 8, 2407);
+    			attr_dev(div0, "class", "image-container");
+    			add_location(div0, file, 77, 6, 2369);
+    			attr_dev(div1, "class", "svelte-3xlzhm");
+    			add_location(div1, file, 81, 8, 2519);
+    			attr_dev(div2, "class", "svelte-3xlzhm");
+    			add_location(div2, file, 84, 8, 2577);
+    			attr_dev(div3, "class", "svelte-3xlzhm");
+    			add_location(div3, file, 87, 8, 2646);
+    			attr_dev(div4, "class", "track-info svelte-3xlzhm");
+    			add_location(div4, file, 80, 6, 2486);
+    			attr_dev(div5, "class", "track-details svelte-3xlzhm");
+    			add_location(div5, file, 76, 4, 2335);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div5, anchor);
+    			append_dev(div5, div0);
+    			append_dev(div0, img);
+    			append_dev(div5, t0);
+    			append_dev(div5, div4);
+    			append_dev(div4, div1);
+    			append_dev(div1, t1);
+    			append_dev(div4, t2);
+    			append_dev(div4, div2);
+    			append_dev(div2, t3);
+    			append_dev(div4, t4);
+    			append_dev(div4, div3);
+    			append_dev(div3, t5);
+    			append_dev(div4, t6);
+    			if_block.m(div4, null);
+    		},
+    		p: function update(ctx, dirty) {
+    			if (dirty & /*currentSong*/ 2 && img.src !== (img_src_value = /*currentSong*/ ctx[1].image[2]["#text"])) {
+    				attr_dev(img, "src", img_src_value);
+    			}
+
+    			if (dirty & /*currentSong*/ 2 && t1_value !== (t1_value = /*currentSong*/ ctx[1].name + "")) set_data_dev(t1, t1_value);
+    			if (dirty & /*currentSong*/ 2 && t3_value !== (t3_value = /*currentSong*/ ctx[1].artist["#text"] + "")) set_data_dev(t3, t3_value);
+    			if (dirty & /*currentSong*/ 2 && t5_value !== (t5_value = /*currentSong*/ ctx[1].album["#text"] + "")) set_data_dev(t5, t5_value);
+
+    			if (current_block_type === (current_block_type = select_block_type(ctx)) && if_block) {
+    				if_block.p(ctx, dirty);
+    			} else {
+    				if_block.d(1);
+    				if_block = current_block_type(ctx);
+
+    				if (if_block) {
+    					if_block.c();
+    					if_block.m(div4, null);
+    				}
+    			}
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div5);
+    			if_block.d();
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_then_block.name,
+    		type: "then",
+    		source: "(76:2) {:then recentTracks}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (95:8) {:else}
+    function create_else_block(ctx) {
+    	let div;
+    	let t0;
+    	let t1_value = getTimeAgo(parseInt(/*currentSong*/ ctx[1].date.uts) * 1000) + "";
+    	let t1;
+    	let t2;
+
+    	const block = {
+    		c: function create() {
+    			div = element("div");
+    			t0 = text("Listened ");
+    			t1 = text(t1_value);
+    			t2 = text(" ago");
+    			attr_dev(div, "class", "last-played svelte-3xlzhm");
+    			add_location(div, file, 95, 8, 2884);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div, anchor);
+    			append_dev(div, t0);
+    			append_dev(div, t1);
+    			append_dev(div, t2);
+    		},
+    		p: function update(ctx, dirty) {
+    			if (dirty & /*currentSong*/ 2 && t1_value !== (t1_value = getTimeAgo(parseInt(/*currentSong*/ ctx[1].date.uts) * 1000) + "")) set_data_dev(t1, t1_value);
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_else_block.name,
+    		type: "else",
+    		source: "(95:8) {:else}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (91:8) {#if currentSong['@attr']}
+    function create_if_block_2(ctx) {
+    	let div;
+    	let img;
+    	let img_src_value;
+
+    	const block = {
+    		c: function create() {
+    			div = element("div");
+    			img = element("img");
+    			if (img.src !== (img_src_value = "sound.gif")) attr_dev(img, "src", img_src_value);
+    			attr_dev(img, "alt", "now playing animation");
+    			attr_dev(img, "class", "svelte-3xlzhm");
+    			add_location(img, file, 92, 10, 2795);
+    			attr_dev(div, "class", "now-playing-animation svelte-3xlzhm");
+    			add_location(div, file, 91, 8, 2749);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div, anchor);
+    			append_dev(div, img);
+    		},
+    		p: noop,
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block_2.name,
+    		type: "if",
+    		source: "(91:8) {#if currentSong['@attr']}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (72:20)      <div class="loading">     Loading...     </div>   {:then recentTracks}
+    function create_pending_block(ctx) {
+    	let div;
+
+    	const block = {
+    		c: function create() {
+    			div = element("div");
+    			div.textContent = "Loading...";
+    			attr_dev(div, "class", "loading svelte-3xlzhm");
+    			add_location(div, file, 72, 4, 2260);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div, anchor);
+    		},
+    		p: noop,
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_pending_block.name,
+    		type: "pending",
+    		source: "(72:20)      <div class=\\\"loading\\\">     Loading...     </div>   {:then recentTracks}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (108:4) {#if trackPlaycount}
+    function create_if_block_1(ctx) {
+    	let div;
+    	let t0;
+    	let t1;
+    	let t2;
+    	let t3_value = parseInt(/*trackPlaycount*/ ctx[2]).toLocaleString() + "";
+    	let t3;
+    	let t4;
+
+    	const block = {
+    		c: function create() {
+    			div = element("div");
+    			t0 = text("\"");
+    			t1 = text(/*trackName*/ ctx[5]);
+    			t2 = text("\" ");
+    			t3 = text(t3_value);
+    			t4 = text(" scrobbles");
+    			attr_dev(div, "class", "user-song-info svelte-3xlzhm");
+    			add_location(div, file, 108, 8, 3186);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div, anchor);
+    			append_dev(div, t0);
+    			append_dev(div, t1);
+    			append_dev(div, t2);
+    			append_dev(div, t3);
+    			append_dev(div, t4);
+    		},
+    		p: function update(ctx, dirty) {
+    			if (dirty & /*trackName*/ 32) set_data_dev(t1, /*trackName*/ ctx[5]);
+    			if (dirty & /*trackPlaycount*/ 4 && t3_value !== (t3_value = parseInt(/*trackPlaycount*/ ctx[2]).toLocaleString() + "")) set_data_dev(t3, t3_value);
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block_1.name,
+    		type: "if",
+    		source: "(108:4) {#if trackPlaycount}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (113:4) {#if artistPlaycount}
+    function create_if_block(ctx) {
+    	let div0;
+    	let t0;
+    	let t1;
+    	let t2_value = parseInt(/*artistPlaycount*/ ctx[3]).toLocaleString() + "";
+    	let t2;
+    	let t3;
+    	let t4;
+    	let div1;
+    	let t5_value = getPercentage(/*trackPlaycount*/ ctx[2], /*artistPlaycount*/ ctx[3]) + "";
+    	let t5;
+    	let t6;
+    	let t7;
+    	let t8;
+    	let t9;
+    	let t10;
+    	let t11;
+    	let t12;
+
+    	const block = {
+    		c: function create() {
+    			div0 = element("div");
+    			t0 = text(/*artistName*/ ctx[6]);
+    			t1 = space();
+    			t2 = text(t2_value);
+    			t3 = text(" scrobbles");
+    			t4 = space();
+    			div1 = element("div");
+    			t5 = text(t5_value);
+    			t6 = text("% of ");
+    			t7 = text(/*username*/ ctx[0]);
+    			t8 = text("'s scrobbles for ");
+    			t9 = text(/*artistName*/ ctx[6]);
+    			t10 = text(" are for '");
+    			t11 = text(/*trackName*/ ctx[5]);
+    			t12 = text("'");
+    			attr_dev(div0, "class", "user-artist-info svelte-3xlzhm");
+    			add_location(div0, file, 113, 6, 3350);
+    			attr_dev(div1, "class", "percentage svelte-3xlzhm");
+    			add_location(div1, file, 116, 6, 3476);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div0, anchor);
+    			append_dev(div0, t0);
+    			append_dev(div0, t1);
+    			append_dev(div0, t2);
+    			append_dev(div0, t3);
+    			insert_dev(target, t4, anchor);
+    			insert_dev(target, div1, anchor);
+    			append_dev(div1, t5);
+    			append_dev(div1, t6);
+    			append_dev(div1, t7);
+    			append_dev(div1, t8);
+    			append_dev(div1, t9);
+    			append_dev(div1, t10);
+    			append_dev(div1, t11);
+    			append_dev(div1, t12);
+    		},
+    		p: function update(ctx, dirty) {
+    			if (dirty & /*artistName*/ 64) set_data_dev(t0, /*artistName*/ ctx[6]);
+    			if (dirty & /*artistPlaycount*/ 8 && t2_value !== (t2_value = parseInt(/*artistPlaycount*/ ctx[3]).toLocaleString() + "")) set_data_dev(t2, t2_value);
+    			if (dirty & /*trackPlaycount, artistPlaycount*/ 12 && t5_value !== (t5_value = getPercentage(/*trackPlaycount*/ ctx[2], /*artistPlaycount*/ ctx[3]) + "")) set_data_dev(t5, t5_value);
+    			if (dirty & /*username*/ 1) set_data_dev(t7, /*username*/ ctx[0]);
+    			if (dirty & /*artistName*/ 64) set_data_dev(t9, /*artistName*/ ctx[6]);
+    			if (dirty & /*trackName*/ 32) set_data_dev(t11, /*trackName*/ ctx[5]);
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div0);
+    			if (detaching) detach_dev(t4);
+    			if (detaching) detach_dev(div1);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block.name,
+    		type: "if",
+    		source: "(113:4) {#if artistPlaycount}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function create_fragment(ctx) {
+    	let div4;
+    	let div0;
+    	let promise;
+    	let t0;
+    	let div3;
+    	let div1;
+    	let t1;
+    	let t2;
+    	let t3;
+    	let t4;
+    	let t5;
+    	let hr;
+    	let t6;
+    	let div2;
+    	let t7;
+    	let t8_value = parseInt(/*userScrobbles*/ ctx[4]).toLocaleString() + "";
+    	let t8;
+    	let t9;
+
+    	let info = {
+    		ctx,
+    		current: null,
+    		token: null,
+    		pending: create_pending_block,
+    		then: create_then_block,
+    		catch: create_catch_block,
+    		value: 8
+    	};
+
+    	handle_promise(promise = /*fetchSong*/ ctx[7], info);
+    	let if_block0 = /*trackPlaycount*/ ctx[2] && create_if_block_1(ctx);
+    	let if_block1 = /*artistPlaycount*/ ctx[3] && create_if_block(ctx);
+
+    	const block = {
+    		c: function create() {
+    			div4 = element("div");
+    			div0 = element("div");
+    			info.block.c();
+    			t0 = space();
+    			div3 = element("div");
+    			div1 = element("div");
+    			t1 = text("Stats for ");
+    			t2 = text(/*username*/ ctx[0]);
+    			t3 = space();
+    			if (if_block0) if_block0.c();
+    			t4 = space();
+    			if (if_block1) if_block1.c();
+    			t5 = space();
+    			hr = element("hr");
+    			t6 = space();
+    			div2 = element("div");
+    			t7 = text("Total scrobbles: ");
+    			t8 = text(t8_value);
+    			t9 = text(" TESTING");
+    			attr_dev(div0, "class", "current-song svelte-3xlzhm");
+    			add_location(div0, file, 70, 2, 2208);
+    			attr_dev(div1, "class", "stat-header svelte-3xlzhm");
+    			add_location(div1, file, 104, 4, 3089);
+    			attr_dev(hr, "class", "svelte-3xlzhm");
+    			add_location(hr, file, 120, 4, 3651);
+    			attr_dev(div2, "class", "user-playcount");
+    			add_location(div2, file, 121, 4, 3661);
+    			attr_dev(div3, "class", "stat-wrapper svelte-3xlzhm");
+    			add_location(div3, file, 103, 2, 3058);
+    			attr_dev(div4, "class", "now-playing-container svelte-3xlzhm");
+    			add_location(div4, file, 69, 0, 2170);
+    		},
+    		l: function claim(nodes) {
+    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div4, anchor);
+    			append_dev(div4, div0);
+    			info.block.m(div0, info.anchor = null);
+    			info.mount = () => div0;
+    			info.anchor = null;
+    			append_dev(div4, t0);
+    			append_dev(div4, div3);
+    			append_dev(div3, div1);
+    			append_dev(div1, t1);
+    			append_dev(div1, t2);
+    			append_dev(div3, t3);
+    			if (if_block0) if_block0.m(div3, null);
+    			append_dev(div3, t4);
+    			if (if_block1) if_block1.m(div3, null);
+    			append_dev(div3, t5);
+    			append_dev(div3, hr);
+    			append_dev(div3, t6);
+    			append_dev(div3, div2);
+    			append_dev(div2, t7);
+    			append_dev(div2, t8);
+    			append_dev(div2, t9);
+    		},
+    		p: function update(new_ctx, [dirty]) {
+    			ctx = new_ctx;
+
+    			{
+    				const child_ctx = ctx.slice();
+    				child_ctx[8] = info.resolved;
+    				info.block.p(child_ctx, dirty);
+    			}
+
+    			if (dirty & /*username*/ 1) set_data_dev(t2, /*username*/ ctx[0]);
+
+    			if (/*trackPlaycount*/ ctx[2]) {
+    				if (if_block0) {
+    					if_block0.p(ctx, dirty);
+    				} else {
+    					if_block0 = create_if_block_1(ctx);
+    					if_block0.c();
+    					if_block0.m(div3, t4);
+    				}
+    			} else if (if_block0) {
+    				if_block0.d(1);
+    				if_block0 = null;
+    			}
+
+    			if (/*artistPlaycount*/ ctx[3]) {
+    				if (if_block1) {
+    					if_block1.p(ctx, dirty);
+    				} else {
+    					if_block1 = create_if_block(ctx);
+    					if_block1.c();
+    					if_block1.m(div3, t5);
+    				}
+    			} else if (if_block1) {
+    				if_block1.d(1);
+    				if_block1 = null;
+    			}
+
+    			if (dirty & /*userScrobbles*/ 16 && t8_value !== (t8_value = parseInt(/*userScrobbles*/ ctx[4]).toLocaleString() + "")) set_data_dev(t8, t8_value);
+    		},
+    		i: noop,
+    		o: noop,
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div4);
+    			info.block.d();
+    			info.token = null;
+    			info = null;
+    			if (if_block0) if_block0.d();
+    			if (if_block1) if_block1.d();
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_fragment.name,
+    		type: "component",
+    		source: "",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function getTimeAgo(latest) {
+    	return formatDistance$1(new Date(), latest);
+    }
+
+    function getPercentage(trackPlaycount, artistPlaycount) {
+    	// {({parseInt(trackPlaycount)} / {parseInt(artistPlaycount)}).toFixed(3) * 100}%
+    	let track = parseFloat(trackPlaycount);
+
+    	let artist = parseFloat(artistPlaycount);
+    	let divided = (track / artist).toFixed(3);
+    	console.log(track, artist, divided);
+    	return divided * 100;
+    }
+
+    function instance($$self, $$props, $$invalidate) {
+    	let { username } = $$props;
+    	let recentTracks;
+    	let currentSong;
+    	let trackPlaycount;
+    	let artistPlaycount;
+    	let userScrobbles;
+    	let trackName;
+    	let artistName;
+    	let baseURL = `https://ws.audioscrobbler.com/2.0/?api_key=30115c5279f79d6eea66d783895ba6c7&format=json&limit=1&user=${username}&autocorrect=1`;
+    	let fetchSong = loadLatestSong();
+
+    	async function loadLatestSong() {
+    		let fullUrl = baseURL + `&method=user.getrecenttracks`;
+    		const res = await fetch(fullUrl);
+    		recentTracks = await res.json();
+    		$$invalidate(1, currentSong = recentTracks.recenttracks.track[0]);
+    		getTrackPlaycount(currentSong);
+    		getArtistPlaycount(currentSong);
+    		getLifetimeScrobbles();
+    		return recentTracks;
+    	}
+
+    	async function getTrackPlaycount(song) {
+    		const artist = song.artist["#text"];
+    		const track = $$invalidate(5, trackName = song.name);
+    		let fullUrl = baseURL + `&method=track.getInfo&artist=${artist}&track=${track}`;
+    		const res = await fetch(fullUrl);
+    		const info = await res.json();
+    		$$invalidate(2, trackPlaycount = info.track.userplaycount);
+    	}
+
+    	async function getArtistPlaycount(song) {
+    		const artist = $$invalidate(6, artistName = song.artist["#text"]);
+    		let fullUrl = baseURL + `&method=artist.getInfo&artist=${artist}`;
+    		const res = await fetch(fullUrl);
+    		const info = await res.json();
+    		$$invalidate(3, artistPlaycount = info.artist.stats.userplaycount);
+    	}
+
+    	async function getLifetimeScrobbles() {
+    		let fullUrl = baseURL + "&method=user.getInfo";
+    		const res = await fetch(fullUrl);
+    		const info = await res.json();
+    		$$invalidate(4, userScrobbles = info.user.playcount);
+    	}
+
+    	let interval = setInterval(loadLatestSong, 20000);
+    	loadLatestSong();
+    	const writable_props = ["username"];
+
+    	Object.keys($$props).forEach(key => {
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console_1.warn(`<NowPlaying> was created with unknown prop '${key}'`);
+    	});
+
+    	let { $$slots = {}, $$scope } = $$props;
+    	validate_slots("NowPlaying", $$slots, []);
+
+    	$$self.$set = $$props => {
+    		if ("username" in $$props) $$invalidate(0, username = $$props.username);
+    	};
+
+    	$$self.$capture_state = () => ({
+    		onMount,
+    		formatDistance: formatDistance$1,
+    		username,
+    		recentTracks,
+    		currentSong,
+    		trackPlaycount,
+    		artistPlaycount,
+    		userScrobbles,
+    		trackName,
+    		artistName,
+    		baseURL,
+    		getTimeAgo,
+    		fetchSong,
+    		loadLatestSong,
+    		getTrackPlaycount,
+    		getArtistPlaycount,
+    		getLifetimeScrobbles,
+    		getPercentage,
+    		interval
+    	});
+
+    	$$self.$inject_state = $$props => {
+    		if ("username" in $$props) $$invalidate(0, username = $$props.username);
+    		if ("recentTracks" in $$props) recentTracks = $$props.recentTracks;
+    		if ("currentSong" in $$props) $$invalidate(1, currentSong = $$props.currentSong);
+    		if ("trackPlaycount" in $$props) $$invalidate(2, trackPlaycount = $$props.trackPlaycount);
+    		if ("artistPlaycount" in $$props) $$invalidate(3, artistPlaycount = $$props.artistPlaycount);
+    		if ("userScrobbles" in $$props) $$invalidate(4, userScrobbles = $$props.userScrobbles);
+    		if ("trackName" in $$props) $$invalidate(5, trackName = $$props.trackName);
+    		if ("artistName" in $$props) $$invalidate(6, artistName = $$props.artistName);
+    		if ("baseURL" in $$props) baseURL = $$props.baseURL;
+    		if ("fetchSong" in $$props) $$invalidate(7, fetchSong = $$props.fetchSong);
+    		if ("interval" in $$props) interval = $$props.interval;
+    	};
+
+    	if ($$props && "$$inject" in $$props) {
+    		$$self.$inject_state($$props.$$inject);
+    	}
+
+    	return [
+    		username,
+    		currentSong,
+    		trackPlaycount,
+    		artistPlaycount,
+    		userScrobbles,
+    		trackName,
+    		artistName,
+    		fetchSong
+    	];
+    }
+
+    class NowPlaying extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+    		init(this, options, instance, create_fragment, safe_not_equal, { username: 0 });
+
+    		dispatch_dev("SvelteRegisterComponent", {
+    			component: this,
+    			tagName: "NowPlaying",
+    			options,
+    			id: create_fragment.name
+    		});
+
+    		const { ctx } = this.$$;
+    		const props = options.props || {};
+
+    		if (/*username*/ ctx[0] === undefined && !("username" in props)) {
+    			console_1.warn("<NowPlaying> was created without expected prop 'username'");
+    		}
+    	}
+
+    	get username() {
+    		throw new Error("<NowPlaying>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set username(value) {
+    		throw new Error("<NowPlaying>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+    }
+
+    function createCommonjsModule(fn, module) {
+    	return module = { exports: {} }, fn(module, module.exports), module.exports;
+    }
+
+    var js_cookie = createCommonjsModule(function (module, exports) {
+    (function (factory) {
+    	var registeredInModuleLoader;
+    	{
+    		module.exports = factory();
+    		registeredInModuleLoader = true;
+    	}
+    	if (!registeredInModuleLoader) {
+    		var OldCookies = window.Cookies;
+    		var api = window.Cookies = factory();
+    		api.noConflict = function () {
+    			window.Cookies = OldCookies;
+    			return api;
+    		};
+    	}
+    }(function () {
+    	function extend () {
+    		var i = 0;
+    		var result = {};
+    		for (; i < arguments.length; i++) {
+    			var attributes = arguments[ i ];
+    			for (var key in attributes) {
+    				result[key] = attributes[key];
+    			}
+    		}
+    		return result;
+    	}
+
+    	function decode (s) {
+    		return s.replace(/(%[0-9A-Z]{2})+/g, decodeURIComponent);
+    	}
+
+    	function init (converter) {
+    		function api() {}
+
+    		function set (key, value, attributes) {
+    			if (typeof document === 'undefined') {
+    				return;
+    			}
+
+    			attributes = extend({
+    				path: '/'
+    			}, api.defaults, attributes);
+
+    			if (typeof attributes.expires === 'number') {
+    				attributes.expires = new Date(new Date() * 1 + attributes.expires * 864e+5);
+    			}
+
+    			// We're using "expires" because "max-age" is not supported by IE
+    			attributes.expires = attributes.expires ? attributes.expires.toUTCString() : '';
+
+    			try {
+    				var result = JSON.stringify(value);
+    				if (/^[\{\[]/.test(result)) {
+    					value = result;
+    				}
+    			} catch (e) {}
+
+    			value = converter.write ?
+    				converter.write(value, key) :
+    				encodeURIComponent(String(value))
+    					.replace(/%(23|24|26|2B|3A|3C|3E|3D|2F|3F|40|5B|5D|5E|60|7B|7D|7C)/g, decodeURIComponent);
+
+    			key = encodeURIComponent(String(key))
+    				.replace(/%(23|24|26|2B|5E|60|7C)/g, decodeURIComponent)
+    				.replace(/[\(\)]/g, escape);
+
+    			var stringifiedAttributes = '';
+    			for (var attributeName in attributes) {
+    				if (!attributes[attributeName]) {
+    					continue;
+    				}
+    				stringifiedAttributes += '; ' + attributeName;
+    				if (attributes[attributeName] === true) {
+    					continue;
+    				}
+
+    				// Considers RFC 6265 section 5.2:
+    				// ...
+    				// 3.  If the remaining unparsed-attributes contains a %x3B (";")
+    				//     character:
+    				// Consume the characters of the unparsed-attributes up to,
+    				// not including, the first %x3B (";") character.
+    				// ...
+    				stringifiedAttributes += '=' + attributes[attributeName].split(';')[0];
+    			}
+
+    			return (document.cookie = key + '=' + value + stringifiedAttributes);
+    		}
+
+    		function get (key, json) {
+    			if (typeof document === 'undefined') {
+    				return;
+    			}
+
+    			var jar = {};
+    			// To prevent the for loop in the first place assign an empty array
+    			// in case there are no cookies at all.
+    			var cookies = document.cookie ? document.cookie.split('; ') : [];
+    			var i = 0;
+
+    			for (; i < cookies.length; i++) {
+    				var parts = cookies[i].split('=');
+    				var cookie = parts.slice(1).join('=');
+
+    				if (!json && cookie.charAt(0) === '"') {
+    					cookie = cookie.slice(1, -1);
+    				}
+
+    				try {
+    					var name = decode(parts[0]);
+    					cookie = (converter.read || converter)(cookie, name) ||
+    						decode(cookie);
+
+    					if (json) {
+    						try {
+    							cookie = JSON.parse(cookie);
+    						} catch (e) {}
+    					}
+
+    					jar[name] = cookie;
+
+    					if (key === name) {
+    						break;
+    					}
+    				} catch (e) {}
+    			}
+
+    			return key ? jar[key] : jar;
+    		}
+
+    		api.set = set;
+    		api.get = function (key) {
+    			return get(key, false /* read as raw */);
+    		};
+    		api.getJSON = function (key) {
+    			return get(key, true /* read as json */);
+    		};
+    		api.remove = function (key, attributes) {
+    			set(key, '', extend(attributes, {
+    				expires: -1
+    			}));
+    		};
+
+    		api.defaults = {};
+
+    		api.withConverter = init;
+
+    		return api;
+    	}
+
+    	return init(function () {});
+    }));
+    });
+
+    /* src/ResetUsername.svelte generated by Svelte v3.19.2 */
+    const file$1 = "src/ResetUsername.svelte";
+
+    // (13:0) {#if showReset}
+    function create_if_block$1(ctx) {
+    	let button;
+    	let button_transition;
+    	let current;
+    	let dispose;
+
+    	const block = {
+    		c: function create() {
+    			button = element("button");
+    			button.textContent = "Reset Username";
+    			add_location(button, file$1, 13, 0, 260);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, button, anchor);
+    			current = true;
+    			dispose = listen_dev(button, "click", resetUsername, false, false, false);
+    		},
+    		p: noop,
+    		i: function intro(local) {
+    			if (current) return;
+
+    			add_render_callback(() => {
+    				if (!button_transition) button_transition = create_bidirectional_transition(button, fly, {}, true);
+    				button_transition.run(1);
+    			});
+
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			if (!button_transition) button_transition = create_bidirectional_transition(button, fly, {}, false);
+    			button_transition.run(0);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(button);
+    			if (detaching && button_transition) button_transition.end();
+    			dispose();
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block$1.name,
+    		type: "if",
+    		source: "(13:0) {#if showReset}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function create_fragment$1(ctx) {
+    	let div;
+    	let t0;
+    	let button;
+    	let t1;
+    	let button_class_value;
+    	let current;
+    	let dispose;
+    	let if_block = /*showReset*/ ctx[0] && create_if_block$1(ctx);
+
+    	const block = {
+    		c: function create() {
+    			div = element("div");
+    			if (if_block) if_block.c();
+    			t0 = space();
+    			button = element("button");
+    			t1 = text("×");
+    			attr_dev(button, "class", button_class_value = "little-x " + (/*showReset*/ ctx[0] ? "showing" : "") + " svelte-63k6g0");
+    			add_location(button, file$1, 17, 0, 340);
+    			attr_dev(div, "class", "reset-container svelte-63k6g0");
+    			add_location(div, file$1, 11, 0, 214);
+    		},
+    		l: function claim(nodes) {
+    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div, anchor);
+    			if (if_block) if_block.m(div, null);
+    			append_dev(div, t0);
+    			append_dev(div, button);
+    			append_dev(button, t1);
+    			current = true;
+    			dispose = listen_dev(button, "click", /*click_handler*/ ctx[1], false, false, false);
+    		},
+    		p: function update(ctx, [dirty]) {
+    			if (/*showReset*/ ctx[0]) {
+    				if (if_block) {
+    					if_block.p(ctx, dirty);
+    					transition_in(if_block, 1);
+    				} else {
+    					if_block = create_if_block$1(ctx);
+    					if_block.c();
+    					transition_in(if_block, 1);
+    					if_block.m(div, t0);
+    				}
+    			} else if (if_block) {
+    				group_outros();
+
+    				transition_out(if_block, 1, 1, () => {
+    					if_block = null;
+    				});
+
+    				check_outros();
+    			}
+
+    			if (!current || dirty & /*showReset*/ 1 && button_class_value !== (button_class_value = "little-x " + (/*showReset*/ ctx[0] ? "showing" : "") + " svelte-63k6g0")) {
+    				attr_dev(button, "class", button_class_value);
+    			}
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(if_block);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(if_block);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div);
+    			if (if_block) if_block.d();
+    			dispose();
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_fragment$1.name,
+    		type: "component",
+    		source: "",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function resetUsername() {
+    	js_cookie.remove("username");
+    	location = location;
+    }
+
+    function instance$1($$self, $$props, $$invalidate) {
+    	let showReset = false;
+    	const writable_props = [];
+
+    	Object.keys($$props).forEach(key => {
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console.warn(`<ResetUsername> was created with unknown prop '${key}'`);
+    	});
+
+    	let { $$slots = {}, $$scope } = $$props;
+    	validate_slots("ResetUsername", $$slots, []);
+    	const click_handler = e => $$invalidate(0, showReset = !showReset);
+    	$$self.$capture_state = () => ({ fly, Cookies: js_cookie, showReset, resetUsername });
+
+    	$$self.$inject_state = $$props => {
+    		if ("showReset" in $$props) $$invalidate(0, showReset = $$props.showReset);
+    	};
+
+    	if ($$props && "$$inject" in $$props) {
+    		$$self.$inject_state($$props.$$inject);
+    	}
+
+    	return [showReset, click_handler];
+    }
+
+    class ResetUsername extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+    		init(this, options, instance$1, create_fragment$1, safe_not_equal, {});
+
+    		dispatch_dev("SvelteRegisterComponent", {
+    			component: this,
+    			tagName: "ResetUsername",
+    			options,
+    			id: create_fragment$1.name
+    		});
+    	}
+    }
+
+    /* src/App.svelte generated by Svelte v3.19.2 */
+
+    const { console: console_1$1 } = globals;
+    const file$2 = "src/App.svelte";
+
+    // (45:0) {:else}
+    function create_else_block$1(ctx) {
+    	let main;
+    	let div;
+    	let input;
+    	let t;
+    	let current;
+    	let dispose;
+    	let if_block = /*username*/ ctx[0] && /*username*/ ctx[0].length > 0 && create_if_block_1$1(ctx);
+
+    	const block = {
+    		c: function create() {
+    			main = element("main");
+    			div = element("div");
+    			input = element("input");
+    			t = space();
+    			if (if_block) if_block.c();
+    			attr_dev(input, "type", "text");
+    			attr_dev(input, "placeholder", "Last.fm Username");
+    			attr_dev(input, "class", "svelte-tjlies");
+    			add_location(input, file$2, 47, 3, 897);
+    			attr_dev(div, "class", "input-container");
+    			add_location(div, file$2, 46, 2, 864);
+    			attr_dev(main, "class", "svelte-tjlies");
+    			add_location(main, file$2, 45, 1, 855);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, main, anchor);
+    			append_dev(main, div);
+    			append_dev(div, input);
+    			set_input_value(input, /*username*/ ctx[0]);
+    			append_dev(div, t);
+    			if (if_block) if_block.m(div, null);
+    			current = true;
+
+    			dispose = [
+    				listen_dev(input, "input", /*input_input_handler*/ ctx[6]),
+    				listen_dev(input, "keydown", /*keydown_handler*/ ctx[7], false, false, false)
+    			];
+    		},
+    		p: function update(ctx, dirty) {
+    			if (dirty & /*username*/ 1 && input.value !== /*username*/ ctx[0]) {
+    				set_input_value(input, /*username*/ ctx[0]);
+    			}
+
+    			if (/*username*/ ctx[0] && /*username*/ ctx[0].length > 0) {
+    				if (if_block) {
+    					if_block.p(ctx, dirty);
+    					transition_in(if_block, 1);
+    				} else {
+    					if_block = create_if_block_1$1(ctx);
+    					if_block.c();
+    					transition_in(if_block, 1);
+    					if_block.m(div, null);
+    				}
+    			} else if (if_block) {
+    				group_outros();
+
+    				transition_out(if_block, 1, 1, () => {
+    					if_block = null;
+    				});
+
+    				check_outros();
+    			}
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(if_block);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(if_block);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(main);
+    			if (if_block) if_block.d();
+    			run_all(dispose);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_else_block$1.name,
+    		type: "else",
+    		source: "(45:0) {:else}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (40:0) {#if showNowPlaying}
+    function create_if_block$2(ctx) {
+    	let div;
+    	let t;
+    	let current;
+
+    	const nowplaying = new NowPlaying({
+    			props: { username: /*username*/ ctx[0] },
+    			$$inline: true
+    		});
+
+    	const resetusername = new ResetUsername({ $$inline: true });
+
+    	const block = {
+    		c: function create() {
+    			div = element("div");
+    			create_component(nowplaying.$$.fragment);
+    			t = space();
+    			create_component(resetusername.$$.fragment);
+    			attr_dev(div, "class", "now-playing-container svelte-tjlies");
+    			add_location(div, file$2, 40, 1, 757);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div, anchor);
+    			mount_component(nowplaying, div, null);
+    			insert_dev(target, t, anchor);
+    			mount_component(resetusername, target, anchor);
+    			current = true;
+    		},
+    		p: function update(ctx, dirty) {
+    			const nowplaying_changes = {};
+    			if (dirty & /*username*/ 1) nowplaying_changes.username = /*username*/ ctx[0];
+    			nowplaying.$set(nowplaying_changes);
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(nowplaying.$$.fragment, local);
+    			transition_in(resetusername.$$.fragment, local);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(nowplaying.$$.fragment, local);
+    			transition_out(resetusername.$$.fragment, local);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div);
+    			destroy_component(nowplaying);
+    			if (detaching) detach_dev(t);
+    			destroy_component(resetusername, detaching);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block$2.name,
+    		type: "if",
+    		source: "(40:0) {#if showNowPlaying}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (53:3) {#if username && username.length > 0}
+    function create_if_block_1$1(ctx) {
+    	let span;
+    	let span_transition;
+    	let current;
+    	let dispose;
+
+    	const block = {
+    		c: function create() {
+    			span = element("span");
+    			span.textContent = "→";
+    			attr_dev(span, "class", "go-arrow svelte-tjlies");
+    			add_location(span, file$2, 53, 4, 1070);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, span, anchor);
+    			current = true;
+    			dispose = listen_dev(span, "click", /*saveUser*/ ctx[2], false, false, false);
+    		},
+    		p: noop,
+    		i: function intro(local) {
+    			if (current) return;
+
+    			add_render_callback(() => {
+    				if (!span_transition) span_transition = create_bidirectional_transition(span, fade, { duration: 300 }, true);
+    				span_transition.run(1);
+    			});
+
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			if (!span_transition) span_transition = create_bidirectional_transition(span, fade, { duration: 300 }, false);
+    			span_transition.run(0);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(span);
+    			if (detaching && span_transition) span_transition.end();
+    			dispose();
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block_1$1.name,
+    		type: "if",
+    		source: "(53:3) {#if username && username.length > 0}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function create_fragment$2(ctx) {
+    	let current_block_type_index;
+    	let if_block;
+    	let if_block_anchor;
+    	let current;
+    	const if_block_creators = [create_if_block$2, create_else_block$1];
+    	const if_blocks = [];
+
+    	function select_block_type(ctx, dirty) {
+    		if (/*showNowPlaying*/ ctx[1]) return 0;
+    		return 1;
+    	}
+
+    	current_block_type_index = select_block_type(ctx);
+    	if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+
+    	const block = {
+    		c: function create() {
+    			if_block.c();
+    			if_block_anchor = empty();
+    		},
+    		l: function claim(nodes) {
+    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+    		},
+    		m: function mount(target, anchor) {
+    			if_blocks[current_block_type_index].m(target, anchor);
+    			insert_dev(target, if_block_anchor, anchor);
+    			current = true;
+    		},
+    		p: function update(ctx, [dirty]) {
+    			let previous_block_index = current_block_type_index;
+    			current_block_type_index = select_block_type(ctx);
+
+    			if (current_block_type_index === previous_block_index) {
+    				if_blocks[current_block_type_index].p(ctx, dirty);
+    			} else {
+    				group_outros();
+
+    				transition_out(if_blocks[previous_block_index], 1, 1, () => {
+    					if_blocks[previous_block_index] = null;
+    				});
+
+    				check_outros();
+    				if_block = if_blocks[current_block_type_index];
+
+    				if (!if_block) {
+    					if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+    					if_block.c();
+    				}
+
+    				transition_in(if_block, 1);
+    				if_block.m(if_block_anchor.parentNode, if_block_anchor);
+    			}
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(if_block);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(if_block);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			if_blocks[current_block_type_index].d(detaching);
+    			if (detaching) detach_dev(if_block_anchor);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_fragment$2.name,
+    		type: "component",
+    		source: "",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function saveToCookie(username) {
+    	js_cookie.set("username", username, { expires: 7 });
+    }
+
+    function instance$2($$self, $$props, $$invalidate) {
+    	let username;
+    	let showNowPlaying = false;
+
+    	function eatCookies() {
+    		$$invalidate(0, username = js_cookie.get("username"));
+    		$$invalidate(1, showNowPlaying = !!username);
+    	}
+
+    	function saveUser() {
+    		saveToCookie(username);
+    		proceedToNowPlaying();
+    	}
+
+    	function proceedToNowPlaying() {
+    		$$invalidate(1, showNowPlaying = true);
+    		console.log(username);
+    	}
+
+    	function handleSubmit(e) {
+    		if (e.key == "Enter") {
+    			saveUser();
+    		}
+    	}
+
+    	onMount(eatCookies);
+    	const writable_props = [];
+
+    	Object.keys($$props).forEach(key => {
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console_1$1.warn(`<App> was created with unknown prop '${key}'`);
+    	});
+
+    	let { $$slots = {}, $$scope } = $$props;
+    	validate_slots("App", $$slots, []);
+
+    	function input_input_handler() {
+    		username = this.value;
+    		$$invalidate(0, username);
+    	}
+
+    	const keydown_handler = e => handleSubmit(e);
+
+    	$$self.$capture_state = () => ({
+    		fade,
+    		onMount,
+    		NowPlaying,
+    		ResetUsername,
+    		Cookies: js_cookie,
+    		username,
+    		showNowPlaying,
+    		eatCookies,
+    		saveUser,
+    		saveToCookie,
+    		proceedToNowPlaying,
+    		handleSubmit
+    	});
+
+    	$$self.$inject_state = $$props => {
+    		if ("username" in $$props) $$invalidate(0, username = $$props.username);
+    		if ("showNowPlaying" in $$props) $$invalidate(1, showNowPlaying = $$props.showNowPlaying);
+    	};
+
+    	if ($$props && "$$inject" in $$props) {
+    		$$self.$inject_state($$props.$$inject);
+    	}
+
+    	return [
+    		username,
+    		showNowPlaying,
+    		saveUser,
+    		handleSubmit,
+    		eatCookies,
+    		proceedToNowPlaying,
+    		input_input_handler,
+    		keydown_handler
+    	];
+    }
+
+    class App extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+    		init(this, options, instance$2, create_fragment$2, safe_not_equal, {});
+
+    		dispatch_dev("SvelteRegisterComponent", {
+    			component: this,
+    			tagName: "App",
+    			options,
+    			id: create_fragment$2.name
+    		});
+    	}
+    }
+
+    const app = new App({
+    	target: document.body
+    });
+
+    return app;
+
+}());
 //# sourceMappingURL=bundle.js.map

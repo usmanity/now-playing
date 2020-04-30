@@ -112,10 +112,10 @@
     {/if}
     {#if artistPlaycount}
       <div class="user-artist-info">
-        <em>{artistName}</em> {parseInt(artistPlaycount).toLocaleString()} scrobbles
+        {artistName} {parseInt(artistPlaycount).toLocaleString()} scrobbles
       </div>
       <div class="percentage">
-        {getPercentage(trackPlaycount, artistPlaycount)}% of {username}'s scrobbles for <em>{artistName}</em> are for '{trackName}'
+        {getPercentage(trackPlaycount, artistPlaycount)}% of {username}'s scrobbles for {artistName} are for '{trackName}'
       </div>
     {/if}
     <hr/>
