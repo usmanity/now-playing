@@ -58,8 +58,7 @@
     let track = parseFloat(trackPlaycount);
     let artist = parseFloat(artistPlaycount);
     let divided = (track / artist).toFixed(3);
-    console.log(track, artist, divided);
-    return divided * 100;
+    return (divided * 100).toFixed(1);
   }
 
   let interval = setInterval(loadLatestSong, 20000);
@@ -128,7 +127,7 @@
 
 <style type="text/scss">
 .now-playing-container {
-  width: 400px;
+  width: 480px;
   max-width: 80%;
   font-feature-settings: 'kern' 1, 'tnum' 1;
 }
