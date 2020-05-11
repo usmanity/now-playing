@@ -6,14 +6,13 @@
     Cookies.remove('username');
     location = location;
   }
-
 </script>
 
 <div class="reset-container">
 {#if showReset}
-<button transition:fly on:click={resetUsername}>
-Reset Username
-</button>
+  <button transition:fly on:click={resetUsername}>
+    Reset Username
+  </button>
 {/if}
 <button class="little-x {showReset ? 'showing' : ''}" on:click={e => showReset = !showReset }>
   &#x00D7;
@@ -37,8 +36,9 @@ Reset Username
   font-size: 26px;
   outline: none;
   transition: transform 0.2s;
+  transform: rotate(45deg);
 }
 .showing {
-  transform: rotate(45deg);
+  transform: rotate(90deg);
 }
 </style>
