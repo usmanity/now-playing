@@ -20,6 +20,6 @@
     "js-cookie": "^2.2.1",
     "node-sass": "^4.13.1",
     "sirv-cli": "^0.4.4",
-    "svelte-preprocess": "^3.5.0"
+    "svelte-preprocess": "3.9.12"
   }
 }
