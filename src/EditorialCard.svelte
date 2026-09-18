@@ -72,12 +72,18 @@
 
     <!-- Stats Bar -->
     <div class="stats-bar">
-      <div class="user-block">
+      <a
+        href="https://www.last.fm/user/{encodeURIComponent(username)}"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="user-block"
+        title="View {username}'s profile on Last.fm"
+      >
         {#if userAvatar}
           <img src={userAvatar} alt="{username} avatar" class="user-avatar" />
         {/if}
         <span class="username">@{username}</span>
-      </div>
+      </a>
 
       <div class="stats-metrics">
         {#if trackPlaycount}
@@ -268,6 +274,16 @@
     align-items: center;
     gap: 8px;
     flex-shrink: 0;
+    text-decoration: none;
+    transition: opacity 0.15s ease;
+  }
+
+  .user-block:hover {
+    opacity: 0.8;
+  }
+
+  .user-block:hover .username {
+    color: #2563eb;
   }
 
   .user-avatar {

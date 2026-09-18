@@ -82,12 +82,18 @@
     <!-- Stats Bar -->
     <div class="stats-section">
       <div class="stats-header">
-        <div class="user-pill">
+        <a
+          href="https://www.last.fm/user/{encodeURIComponent(username)}"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="user-pill"
+          title="View {username}'s profile on Last.fm"
+        >
           {#if userAvatar}
             <img src={userAvatar} alt="{username} avatar" class="user-avatar" />
           {/if}
           <span class="username">@{username}</span>
-        </div>
+        </a>
         {#if userScrobbles}
           <span class="total-scrobbles">{parseInt(userScrobbles).toLocaleString()} scrobbles</span>
         {/if}
@@ -325,6 +331,16 @@
     display: inline-flex;
     align-items: center;
     gap: 8px;
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+  }
+
+  .user-pill:hover {
+    opacity: 0.8;
+  }
+
+  .user-pill:hover .username {
+    color: #93c5fd;
   }
 
   .user-avatar {
