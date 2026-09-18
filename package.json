@@ -1,10 +1,10 @@
 {
   "name": "now-playing",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
-    "start": "sirv docs"
+    "start": "sirv docs --port 5005 --single"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "19.0.2",
@@ -20,7 +20,7 @@
   "dependencies": {
     "date-fns": "2.23.0",
     "js-cookie": "3.0.0",
-    "node-sass": "6.0.1",
+    "sass": "^1.77.0",
     "sirv-cli": "1.0.12",
     "svelte-preprocess": "4.7.4"
   }

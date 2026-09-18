@@ -1,180 +1,257 @@
 <script>
-  import { onMount } from 'svelte';
+  import { onMount, onDestroy } from 'svelte';
   import { formatDistance } from 'date-fns';
+  import GlassCard from './GlassCard.svelte';
+  import EditorialCard from './EditorialCard.svelte';
 
-  export let username;
-  let recentTracks;
-  let currentSong;
-  let trackPlaycount;
-  let artistPlaycount;
-  let userScrobbles;
-  let trackName;
-  let artistName;
-  let baseURL = `https://ws.audioscrobbler.com/2.0/?api_key=30115c5279f79d6eea66d783895ba6c7&format=json&limit=1&user=${username}&autocorrect=1`;
-  
-  function getTimeAgo(latest) {
-    return formatDistance(new Date(), latest);
+  export let username = '';
+  export let theme = 'glass';
+
+  let currentTrack = null;
+  let trackName = '';
+  let artistName = '';
+  let albumName = '';
+  let imageUrl = '';
+  let isNowPlaying = false;
+  let timeAgo = '';
+  let isLoved = false;
+  let trackPlaycount = 0;
+  let artistPlaycount = 0;
+  let userScrobbles = 0;
+  let userAvatar = '';
+  let trackUrl = '';
+  let loading = true;
+  let lastTrackSignature = '';
+  let pollTimer = null;
+
+  const apiKey = '30115c5279f79d6eea66d783895ba6c7';
+  const baseURL = `https://ws.audioscrobbler.com/2.0/?api_key=${apiKey}&format=json&autocorrect=1`;
+
+  function getBestImage(imageArray) {
+    if (!Array.isArray(imageArray) || imageArray.length === 0) return '';
+    // Priority: extralarge (index 3), large (index 2), medium (index 1)
+    const preferredOrder = [3, 2, 1, 0];
+    for (const idx of preferredOrder) {
+      if (imageArray[idx] && imageArray[idx]['#text']) {
+        let url = imageArray[idx]['#text'];
+        // Last.fm image CDN supports upgrading to higher res
+        if (url.includes('/300x300/')) {
+          url = url.replace('/300x300/', '/600x600/');
+        }
+        return url;
+      }
+    }
+    return '';
   }
 
-  let fetchSong = loadLatestSong();
-
-  async function loadLatestSong() {
-    let fullUrl = baseURL + `&method=user.getrecenttracks`;
-    const res = await fetch(fullUrl);
-    recentTracks = await res.json();
-    currentSong = recentTracks.recenttracks.track[0];
-    getTrackPlaycount(currentSong);
-    getArtistPlaycount(currentSong);
-    getLifetimeScrobbles();
-    return recentTracks;
+  function getTimeAgo(epochSeconds) {
+    if (!epochSeconds) return '';
+    return formatDistance(new Date(), new Date(epochSeconds * 1000));
   }
 
-  async function getTrackPlaycount(song) {
-    const artist = song.artist['#text'];
-    const track = trackName = song.name;
-    let fullUrl = baseURL + `&method=track.getInfo&artist=${artist}&track=${track}`;
-    const res = await fetch(fullUrl);
-    const info = await res.json();
-    trackPlaycount = info.track.userplaycount;
+  async function loadRecentTrack() {
+    try {
+      const fullUrl = `${baseURL}&limit=1&user=${encodeURIComponent(username)}&method=user.getrecenttracks`;
+      const res = await fetch(fullUrl);
+      const data = await res.json();
+
+      const rawTracks = data?.recenttracks?.track;
+      const song = Array.isArray(rawTracks) ? rawTracks[0] : rawTracks;
+
+      if (!song) {
+        loading = false;
+        return;
+      }
+
+      const rawArtist = song.artist?.['#text'] || song.artist?.name || (typeof song.artist === 'string' ? song.artist : '');
+      const rawAlbum = song.album?.['#text'] || song.album?.title || '';
+      const rawTrack = song.name || '';
+      const signature = `${rawArtist}:::${rawTrack}`;
+
+      isNowPlaying = Boolean(song['@attr'] && song['@attr'].nowplaying === 'true');
+      timeAgo = song.date ? getTimeAgo(parseInt(song.date.uts, 10)) : '';
+      trackName = rawTrack;
+      artistName = rawArtist;
+      albumName = rawAlbum;
+      imageUrl = getBestImage(song.image);
+      trackUrl = song.url || '';
+
+      // Only refetch deep metadata if track signature changed
+      if (signature !== lastTrackSignature) {
+        lastTrackSignature = signature;
+        await Promise.all([
+          getTrackInfo(artistName, trackName),
+          getArtistInfo(artistName)
+        ]);
+      }
+    } catch (err) {
+      console.error('Error fetching recent track:', err);
+    } finally {
+      loading = false;
+    }
   }
 
-  async function getArtistPlaycount(song) {
-    const artist = artistName = song.artist['#text'];
-    let fullUrl = baseURL + `&method=artist.getInfo&artist=${artist}`;
-    const res = await fetch(fullUrl);
-    const info = await res.json();
-    artistPlaycount = info.artist.stats.userplaycount;
+  async function getTrackInfo(artist, track) {
+    if (!artist || !track) return;
+    try {
+      const fullUrl = `${baseURL}&user=${encodeURIComponent(username)}&method=track.getInfo&artist=${encodeURIComponent(artist)}&track=${encodeURIComponent(track)}`;
+      const res = await fetch(fullUrl);
+      const data = await res.json();
+      if (data?.track) {
+        trackPlaycount = parseInt(data.track.userplaycount, 10) || 0;
+        isLoved = data.track.userloved === '1' || data.track.userloved === 1;
+        if (!imageUrl && data.track.album?.image) {
+          imageUrl = getBestImage(data.track.album.image);
+        }
+      }
+    } catch (err) {
+      console.error('Error fetching track info:', err);
+    }
   }
 
-  async function getLifetimeScrobbles() {
-    let fullUrl = baseURL + '&method=user.getInfo';
-    const res = await fetch(fullUrl);
-    const info = await res.json();
-    userScrobbles = info.user.playcount;
+  async function getArtistInfo(artist) {
+    if (!artist) return;
+    try {
+      const fullUrl = `${baseURL}&user=${encodeURIComponent(username)}&method=artist.getInfo&artist=${encodeURIComponent(artist)}`;
+      const res = await fetch(fullUrl);
+      const data = await res.json();
+      if (data?.artist?.stats) {
+        artistPlaycount = parseInt(data.artist.stats.userplaycount, 10) || 0;
+      }
+    } catch (err) {
+      console.error('Error fetching artist info:', err);
+    }
   }
 
-  function getPercentage(trackPlaycount, artistPlaycount) {
-    // {({parseInt(trackPlaycount)} / {parseInt(artistPlaycount)}).toFixed(3) * 100}%
-    let track = parseFloat(trackPlaycount);
-    let artist = parseFloat(artistPlaycount);
-    let divided = (track / artist).toFixed(3);
-    return (divided * 100).toFixed(1);
+  async function getUserInfo() {
+    try {
+      const fullUrl = `${baseURL}&user=${encodeURIComponent(username)}&method=user.getInfo`;
+      const res = await fetch(fullUrl);
+      const data = await res.json();
+      if (data?.user) {
+        userScrobbles = parseInt(data.user.playcount, 10) || 0;
+        if (data.user.image) {
+          userAvatar = data.user.image[2]?.['#text'] || data.user.image[1]?.['#text'] || '';
+        }
+      }
+    } catch (err) {
+      console.error('Error fetching user info:', err);
+    }
   }
 
-  let interval = setInterval(loadLatestSong, 20000);
+  onMount(() => {
+    loadRecentTrack();
+    getUserInfo();
+    pollTimer = setInterval(loadRecentTrack, 20000);
+  });
 
-  loadLatestSong();
-
+  onDestroy(() => {
+    if (pollTimer) clearInterval(pollTimer);
+  });
 </script>
-<div class="now-playing-container">
-  <div class="current-song">
-  {#await fetchSong}
-    <div class="loading">
-    Loading...
-    </div>
-  {:then recentTracks}
-    <div class="track-details">
-      <div class="image-container">
-        <img src={currentSong.image[2]['#text']} alt="album cover">
+
+{#if loading}
+  <div class="skeleton-container theme-{theme}">
+    <div class="skeleton-box">
+      <div class="skeleton-art"></div>
+      <div class="skeleton-lines">
+        <div class="skeleton-line w-75"></div>
+        <div class="skeleton-line w-50"></div>
+        <div class="skeleton-line w-40"></div>
       </div>
-      <div class="track-info">
-        <div>
-          {currentSong.name}
-        </div>
-        <div>
-          {currentSong.artist['#text']}
-        </div>
-        <div>
-          {currentSong.album['#text']}
-        </div>
-        {#if currentSong['@attr']}
-        <div class="now-playing-animation">
-          <img src="sound.gif" alt="now playing animation">
-        </div>
-        {:else}
-        <div class="last-played">
-        Listened {getTimeAgo(parseInt(currentSong.date.uts) * 1000)} ago
-        </div>
-        {/if}
-      </div>
-    </div>
-  {/await}
-  </div>
-  <div class="stat-wrapper">
-    <div class="stat-header">
-      Stats for {username}
-    </div>
-    {#if trackPlaycount}
-        <div class="user-song-info">
-          "{trackName}" {parseInt(trackPlaycount).toLocaleString()} scrobbles
-        </div>
-    {/if}
-    {#if artistPlaycount}
-      <div class="user-artist-info">
-        {artistName} {parseInt(artistPlaycount).toLocaleString()} scrobbles
-      </div>
-      <div class="percentage">
-        {getPercentage(trackPlaycount, artistPlaycount)}% of {username}'s scrobbles for {artistName} are for '{trackName}'
-      </div>
-    {/if}
-    <hr/>
-    <div class="user-playcount">
-      Total scrobbles: {parseInt(userScrobbles).toLocaleString()}
     </div>
   </div>
-</div>
+{:else}
+  {#if theme === 'editorial'}
+    <EditorialCard
+      {trackName}
+      {artistName}
+      {albumName}
+      {imageUrl}
+      {isNowPlaying}
+      {timeAgo}
+      {isLoved}
+      {trackPlaycount}
+      {artistPlaycount}
+      {userScrobbles}
+      {username}
+      {userAvatar}
+      {trackUrl}
+    />
+  {:else}
+    <GlassCard
+      {trackName}
+      {artistName}
+      {albumName}
+      {imageUrl}
+      {isNowPlaying}
+      {timeAgo}
+      {isLoved}
+      {trackPlaycount}
+      {artistPlaycount}
+      {userScrobbles}
+      {username}
+      {userAvatar}
+      {trackUrl}
+    />
+  {/if}
+{/if}
 
-
-<style type="text/scss">
-.now-playing-container {
-  width: 480px;
-  max-width: 80%;
-  font-feature-settings: 'kern' 1, 'tnum' 1;
-}
-.stat-wrapper {
-  background-color: white;
-  border: 1px solid black;
-  border-top: 0;
-  padding: 10px 20px;
-}
-.current-song {
-  border: 1px solid black;
-  padding: 20px;
-  background-color: white;  
-}
-.track-details {
-  display: flex;
-}
-.track-info {
-  margin-left: 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  > div {
-    margin-bottom: 8px;
+<style>
+  .skeleton-container {
+    width: 520px;
+    max-width: 92vw;
+    margin: 0 auto;
+    border-radius: 20px;
+    padding: 28px;
   }
-}
-.loading {
-  width: 100%;
-  height: 100%;
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.now-playing-animation img {
-  width: 20px;
-}
-.stat-header {
-  font-size: 10px;
-  text-align: center;
-  margin: 0 0 10px;
-}
-hr {
-  border-style: solid;
-  border-width: 1px 0 0 0;
-}
-.user-song-info, .user-artist-info, .percentage {
-  margin: 10px 0;
-}
+
+  .skeleton-container.theme-glass {
+    background: rgba(18, 21, 29, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .skeleton-container.theme-editorial {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+  }
+
+  .skeleton-box {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+  }
+
+  .skeleton-art {
+    width: 140px;
+    height: 140px;
+    border-radius: 12px;
+    background: linear-gradient(90deg, rgba(148, 163, 184, 0.15) 25%, rgba(148, 163, 184, 0.25) 50%, rgba(148, 163, 184, 0.15) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+  }
+
+  .skeleton-lines {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .skeleton-line {
+    height: 16px;
+    border-radius: 8px;
+    background: linear-gradient(90deg, rgba(148, 163, 184, 0.15) 25%, rgba(148, 163, 184, 0.25) 50%, rgba(148, 163, 184, 0.15) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+  }
+
+  .w-75 { width: 75%; height: 22px; }
+  .w-50 { width: 50%; }
+  .w-40 { width: 40%; }
+
+  @keyframes shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
 </style>
