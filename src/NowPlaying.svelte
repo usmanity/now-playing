@@ -2,10 +2,8 @@
   import { onMount, onDestroy } from 'svelte';
   import { formatDistance } from 'date-fns';
   import GlassCard from './GlassCard.svelte';
-  import EditorialCard from './EditorialCard.svelte';
 
   export let username = '';
-  export let theme = 'glass';
 
   let currentTrack = null;
   let trackName = '';
@@ -29,12 +27,10 @@
 
   function getBestImage(imageArray) {
     if (!Array.isArray(imageArray) || imageArray.length === 0) return '';
-    // Priority: extralarge (index 3), large (index 2), medium (index 1)
     const preferredOrder = [3, 2, 1, 0];
     for (const idx of preferredOrder) {
       if (imageArray[idx] && imageArray[idx]['#text']) {
         let url = imageArray[idx]['#text'];
-        // Last.fm image CDN supports upgrading to higher res
         if (url.includes('/300x300/')) {
           url = url.replace('/300x300/', '/600x600/');
         }
@@ -76,7 +72,6 @@
       imageUrl = getBestImage(song.image);
       trackUrl = song.url || '';
 
-      // Only refetch deep metadata if track signature changed
       if (signature !== lastTrackSignature) {
         lastTrackSignature = signature;
         await Promise.all([
@@ -151,7 +146,7 @@
 </script>
 
 {#if loading}
-  <div class="skeleton-container theme-{theme}">
+  <div class="skeleton-container">
     <div class="skeleton-box">
       <div class="skeleton-art"></div>
       <div class="skeleton-lines">
@@ -162,39 +157,21 @@
     </div>
   </div>
 {:else}
-  {#if theme === 'editorial'}
-    <EditorialCard
-      {trackName}
-      {artistName}
-      {albumName}
-      {imageUrl}
-      {isNowPlaying}
-      {timeAgo}
-      {isLoved}
-      {trackPlaycount}
-      {artistPlaycount}
-      {userScrobbles}
-      {username}
-      {userAvatar}
-      {trackUrl}
-    />
-  {:else}
-    <GlassCard
-      {trackName}
-      {artistName}
-      {albumName}
-      {imageUrl}
-      {isNowPlaying}
-      {timeAgo}
-      {isLoved}
-      {trackPlaycount}
-      {artistPlaycount}
-      {userScrobbles}
-      {username}
-      {userAvatar}
-      {trackUrl}
-    />
-  {/if}
+  <GlassCard
+    {trackName}
+    {artistName}
+    {albumName}
+    {imageUrl}
+    {isNowPlaying}
+    {timeAgo}
+    {isLoved}
+    {trackPlaycount}
+    {artistPlaycount}
+    {userScrobbles}
+    {username}
+    {userAvatar}
+    {trackUrl}
+  />
 {/if}
 
 <style>
@@ -204,16 +181,8 @@
     margin: 0 auto;
     border-radius: 20px;
     padding: 28px;
-  }
-
-  .skeleton-container.theme-glass {
     background: rgba(18, 21, 29, 0.7);
     border: 1px solid rgba(255, 255, 255, 0.1);
-  }
-
-  .skeleton-container.theme-editorial {
-    background: #ffffff;
-    border: 1px solid #e2e8f0;
   }
 
   .skeleton-box {

@@ -6,24 +6,13 @@
 
   let username = '';
   let showNowPlaying = false;
-  let currentTheme = 'glass'; // 'glass' | 'editorial'
   let isFromUrl = false;
 
   function initApp() {
-    // 1. Check URL parameters (?user= or ?u= or #hash)
     const urlParams = new URLSearchParams(window.location.search);
     const urlUser = urlParams.get('user') || urlParams.get('u');
     const hashUser = window.location.hash ? window.location.hash.replace(/^#\/?/, '').trim() : '';
     const initialUser = urlUser || hashUser || Cookies.get('username');
-
-    // 2. Check theme param (?theme= or ?view= or localStorage)
-    const urlTheme = urlParams.get('theme') || urlParams.get('view');
-    const storedTheme = localStorage.getItem('np_theme');
-    if (urlTheme === 'editorial' || urlTheme === 'glass') {
-      currentTheme = urlTheme;
-    } else if (storedTheme === 'editorial' || storedTheme === 'glass') {
-      currentTheme = storedTheme;
-    }
 
     if (initialUser) {
       username = initialUser;
@@ -37,14 +26,6 @@
     username = username.trim();
     Cookies.set('username', username, { expires: 30 });
     showNowPlaying = true;
-  }
-
-  function setTheme(theme) {
-    currentTheme = theme;
-    localStorage.setItem('np_theme', theme);
-    const url = new URL(window.location);
-    url.searchParams.set('theme', theme);
-    window.history.replaceState({}, '', url);
   }
 
   function resetUser() {
@@ -68,35 +49,22 @@
   onMount(initApp);
 </script>
 
-<div class="app-root theme-{currentTheme}">
+<div class="app-root">
   {#if showNowPlaying}
     <div class="now-playing-container">
-      <NowPlaying {username} theme={currentTheme} />
+      <NowPlaying {username} />
     </div>
 
-    <!-- Bottom Controls Floating Toolbar -->
-    <div class="floating-controls">
-      <div class="theme-switcher">
-        <button
-          class="theme-btn {currentTheme === 'glass' ? 'active' : ''}"
-          on:click={() => setTheme('glass')}
-          title="Dark Glassmorphic Theme"
-        >
-          <span class="theme-icon">✦</span> Glass
-        </button>
-        <button
-          class="theme-btn {currentTheme === 'editorial' ? 'active' : ''}"
-          on:click={() => setTheme('editorial')}
-          title="Clean Editorial Theme"
-        >
-          <span class="theme-icon">◻</span> Editorial
-        </button>
-      </div>
-
-      <button class="reset-btn" on:click={resetUser} title="Change Last.fm username">
-        <span class="reset-icon">↺</span> Change User
-      </button>
-    </div>
+    <!-- Bottom-right expanding refresh button -->
+    <button
+      class="change-user-btn"
+      on:click={resetUser}
+      title="Change username"
+      aria-label="Change username"
+    >
+      <span class="refresh-icon">↺</span>
+      <span class="btn-label">Change username</span>
+    </button>
   {:else}
     <main class="welcome-screen">
       <div class="input-card">
@@ -130,19 +98,10 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    transition: background-color 0.4s ease, color 0.4s ease;
-    padding: 30px 16px 80px 16px;
-    box-sizing: border-box;
-  }
-
-  .app-root.theme-glass {
     background-color: #0b0d13;
     color: #f1f5f9;
-  }
-
-  .app-root.theme-editorial {
-    background-color: #f8fafc;
-    color: #0f172a;
+    padding: 30px 16px;
+    box-sizing: border-box;
   }
 
   .now-playing-container {
@@ -152,107 +111,66 @@
     align-items: center;
   }
 
-  /* Floating Toolbar */
-  .floating-controls {
+  /* Bottom-Right Expanding Change Username Button */
+  .change-user-btn {
     position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
+    bottom: 24px;
+    right: 24px;
+    display: inline-flex;
     align-items: center;
-    gap: 8px;
-    padding: 6px 10px;
+    height: 42px;
+    padding: 0 12px;
     border-radius: 9999px;
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    z-index: 100;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s ease;
-  }
-
-  .theme-glass .floating-controls {
-    background: rgba(22, 27, 38, 0.85);
+    background: rgba(22, 27, 38, 0.8);
     border: 1px solid rgba(255, 255, 255, 0.12);
-  }
-
-  .theme-editorial .floating-controls {
-    background: rgba(255, 255, 255, 0.9);
-    border: 1px solid #e2e8f0;
-  }
-
-  .theme-switcher {
-    display: flex;
-    background: rgba(0, 0, 0, 0.15);
-    border-radius: 9999px;
-    padding: 2px;
-  }
-
-  .theme-btn {
-    border: none;
-    background: transparent;
-    font-size: 0.78rem;
-    font-weight: 600;
-    padding: 5px 12px;
-    border-radius: 9999px;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    color: #94a3b8;
     cursor: pointer;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 100;
+  }
+
+  .refresh-icon {
+    font-size: 1.15rem;
+    line-height: 1;
     display: inline-flex;
     align-items: center;
-    gap: 5px;
-    transition: all 0.2s ease;
+    justify-content: center;
+    transition: transform 0.4s ease, color 0.2s ease;
+    flex-shrink: 0;
   }
 
-  .theme-glass .theme-btn {
-    color: #94a3b8;
-  }
-
-  .theme-glass .theme-btn.active {
-    background: rgba(255, 255, 255, 0.15);
-    color: #ffffff;
-  }
-
-  .theme-editorial .theme-btn {
-    color: #64748b;
-  }
-
-  .theme-editorial .theme-btn.active {
-    background: #0f172a;
-    color: #ffffff;
-  }
-
-  .reset-btn {
-    border: none;
-    background: transparent;
-    font-size: 0.78rem;
+  .btn-label {
+    max-width: 0;
+    opacity: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    font-size: 0.82rem;
     font-weight: 500;
-    padding: 5px 12px;
-    border-radius: 9999px;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    transition: all 0.2s ease;
-  }
-
-  .theme-glass .reset-btn {
-    color: #94a3b8;
-  }
-
-  .theme-glass .reset-btn:hover {
     color: #ffffff;
-    background: rgba(255, 255, 255, 0.1);
+    transition: max-width 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.25s ease, margin-left 0.25s ease;
+    margin-left: 0;
   }
 
-  .theme-editorial .reset-btn {
-    color: #64748b;
+  .change-user-btn:hover {
+    color: #ffffff;
+    background: rgba(30, 37, 52, 0.95);
+    border-color: rgba(255, 255, 255, 0.25);
+    padding: 0 16px 0 13px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
   }
 
-  .theme-editorial .reset-btn:hover {
-    color: #0f172a;
-    background: #f1f5f9;
+  .change-user-btn:hover .refresh-icon {
+    transform: rotate(180deg);
+    color: #60a5fa;
   }
 
-  .reset-icon {
-    font-size: 0.9rem;
+  .change-user-btn:hover .btn-label {
+    max-width: 150px;
+    opacity: 1;
+    margin-left: 8px;
   }
 
   /* Welcome Screen */
