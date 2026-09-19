@@ -263,25 +263,65 @@
   .equalizer-bars {
     display: flex;
     align-items: flex-end;
-    gap: 2.5px;
-    height: 14px;
+    gap: 3px;
+    height: 15px;
+    padding-bottom: 1px;
   }
 
   .bar {
     width: 3px;
-    background: #4ade80;
-    border-radius: 2px;
-    animation: bounce 1.2s ease-in-out infinite alternate;
+    height: 100%;
+    background: linear-gradient(180deg, #86efac 0%, #22c55e 100%);
+    border-radius: 9999px;
+    transform-origin: bottom;
+    box-shadow: 0 0 6px rgba(74, 222, 128, 0.4);
+    will-change: transform;
   }
 
-  .bar-1 { height: 60%; animation-delay: 0.1s; }
-  .bar-2 { height: 100%; animation-delay: 0.4s; }
-  .bar-3 { height: 40%; animation-delay: 0.2s; }
-  .bar-4 { height: 80%; animation-delay: 0.5s; }
+  .bar-1 {
+    animation: bar-dance-1 1.15s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+  }
 
-  @keyframes bounce {
-    0% { height: 20%; }
-    100% { height: 100%; }
+  .bar-2 {
+    animation: bar-dance-2 0.85s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+  }
+
+  .bar-3 {
+    animation: bar-dance-3 1.3s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+  }
+
+  .bar-4 {
+    animation: bar-dance-4 0.95s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+  }
+
+  @keyframes bar-dance-1 {
+    0%, 100% { transform: scaleY(0.25); }
+    20% { transform: scaleY(0.75); }
+    40% { transform: scaleY(0.35); }
+    60% { transform: scaleY(0.95); }
+    80% { transform: scaleY(0.5); }
+  }
+
+  @keyframes bar-dance-2 {
+    0%, 100% { transform: scaleY(0.5); }
+    25% { transform: scaleY(0.2); }
+    50% { transform: scaleY(1); }
+    75% { transform: scaleY(0.4); }
+  }
+
+  @keyframes bar-dance-3 {
+    0%, 100% { transform: scaleY(0.85); }
+    18% { transform: scaleY(0.3); }
+    45% { transform: scaleY(0.65); }
+    70% { transform: scaleY(0.2); }
+    85% { transform: scaleY(0.9); }
+  }
+
+  @keyframes bar-dance-4 {
+    0%, 100% { transform: scaleY(0.3); }
+    30% { transform: scaleY(0.9); }
+    55% { transform: scaleY(0.4); }
+    80% { transform: scaleY(1); }
   }
 
   .status-text {
