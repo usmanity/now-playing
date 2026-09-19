@@ -278,50 +278,32 @@
     will-change: transform;
   }
 
-  .bar-1 {
-    animation: bar-dance-1 1.15s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
-  }
+  /* Vinyl Groove Equalizer Animation */
+  .bar-1 { animation: vinyl-dance-1 1.8s cubic-bezier(0.25, 0.1, 0.25, 1) infinite; }
+  .bar-2 { animation: vinyl-dance-2 1.45s cubic-bezier(0.25, 0.1, 0.25, 1) infinite; }
+  .bar-3 { animation: vinyl-dance-3 2.05s cubic-bezier(0.25, 0.1, 0.25, 1) infinite; }
+  .bar-4 { animation: vinyl-dance-4 1.65s cubic-bezier(0.25, 0.1, 0.25, 1) infinite; }
 
-  .bar-2 {
-    animation: bar-dance-2 0.85s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
-  }
-
-  .bar-3 {
-    animation: bar-dance-3 1.3s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
-  }
-
-  .bar-4 {
-    animation: bar-dance-4 0.95s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
-  }
-
-  @keyframes bar-dance-1 {
+  @keyframes vinyl-dance-1 {
     0%, 100% { transform: scaleY(0.25); }
-    20% { transform: scaleY(0.75); }
-    40% { transform: scaleY(0.35); }
-    60% { transform: scaleY(0.95); }
-    80% { transform: scaleY(0.5); }
+    25% { transform: scaleY(0.65); }
+    50% { transform: scaleY(0.35); }
+    75% { transform: scaleY(0.85); }
   }
-
-  @keyframes bar-dance-2 {
+  @keyframes vinyl-dance-2 {
     0%, 100% { transform: scaleY(0.5); }
-    25% { transform: scaleY(0.2); }
-    50% { transform: scaleY(1); }
-    75% { transform: scaleY(0.4); }
+    30% { transform: scaleY(0.2); }
+    60% { transform: scaleY(0.95); }
   }
-
-  @keyframes bar-dance-3 {
-    0%, 100% { transform: scaleY(0.85); }
-    18% { transform: scaleY(0.3); }
-    45% { transform: scaleY(0.65); }
-    70% { transform: scaleY(0.2); }
-    85% { transform: scaleY(0.9); }
+  @keyframes vinyl-dance-3 {
+    0%, 100% { transform: scaleY(0.75); }
+    35% { transform: scaleY(0.3); }
+    70% { transform: scaleY(0.85); }
   }
-
-  @keyframes bar-dance-4 {
+  @keyframes vinyl-dance-4 {
     0%, 100% { transform: scaleY(0.3); }
-    30% { transform: scaleY(0.9); }
-    55% { transform: scaleY(0.4); }
-    80% { transform: scaleY(1); }
+    40% { transform: scaleY(0.75); }
+    70% { transform: scaleY(0.35); }
   }
 
   .status-text {
